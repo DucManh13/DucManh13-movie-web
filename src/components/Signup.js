@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 function Signup() {
   const [state,setState]=useState({
@@ -78,6 +78,6 @@ function Signup() {
       </div>
     </div>        
   );
-  }
-  
-  export default Signup;
+}
+
+export default Signup;

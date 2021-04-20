@@ -30,7 +30,7 @@ function Login(props) {
         })
         .catch(error => {
           //console.log(error);
-          if(error.response.data.status==401)
+          if(error.response.data.status===401)
             setAlert(error.response.data.message);
         });
     }
@@ -64,6 +64,6 @@ function Login(props) {
       </div>
     </div>        
   );
-  }
-  
-  export default Login;
+}
+
+export default Login;
