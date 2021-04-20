@@ -36,3 +36,50 @@
     transform: rotate(360deg);
   }
 }
+
+.s-1{
+  font-size: 40px;
+}
+.s-2{
+  font-size: 32px;
+}
+.s-3{
+  font-size: 28px;
+}
+.s-4{
+  font-size: 24px;
+}
+.s-5{
+  font-size: 20px;
+}
+.s-6{
+  font-size: 16px;
+}
+
+.bg-green {
+  background-color: seagreen;
+}
+.bg-blue {
+  background-color: royalblue;
+}
+.bg-orange {
+  background-color: orange;
+}
+.bg-brown {
+  background-color: saddlebrown;
+}
+.bg-white2 {
+  background-color: whitesmoke;
+}
+.bg-purple {
+  background-color: indigo;
+}
+.bg-pink {
+  background-color: hotpink;
+}
+.bg-silver {
+  background-color: silver;
+}
+.bg-gold {
+  background-color: gold;
+}
