@@ -1,4 +1,5 @@
-
+import DateList from "./DateList";
+import ScreeningList from './ScreeningList';
 
 function Schedule(props) {
   const schedule=[
@@ -66,19 +67,19 @@ function Schedule(props) {
   return (
     <div className="container py-3 px-5 bg-light">
       <h3>Movie Schedule</h3>
+
+      <DateList/>
       <hr/>
-      <div className="container">
-        
-      </div>
-        {schedule.map((movie,index)=>
-          (<div className="row mb-4" key={index}>
-            <div className="col-sm-3">
-              <img className="img-responsive w-100" src={movie.image} alt="Movie Poster"/>                  
-            </div>  
-            <div className="col-sm-9">
-                <h4>{movie.name}</h4>
-            </div>  
-          </div>))}
+      {schedule.map((movie,index)=>
+        (<div className="row my-4" key={index}>
+          <div className="col-sm-3">
+            <img className="img-responsive w-100" src={movie.image} alt="Movie Poster"/>                  
+          </div>  
+          <div className="col-sm-9">
+              <h4>{movie.name}</h4>
+              <ScreeningList/>
+          </div>  
+        </div>))}
     </div>          
   );
 }
