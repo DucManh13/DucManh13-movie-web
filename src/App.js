@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import ListMovie from './components/ListMovie';
 import Movie from './components/Movie';
 import Schedule from './components/Schedule';
+import Booking from './components/Booking';
 
 function App() {
   const [token, setToken] = useState();
@@ -36,25 +37,32 @@ function App() {
           <li className="nav-item">
             <NavLink exact to="/schedule" className="nav-link" activeClassName="active">Schedule</NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink exact to="/booking" className="nav-link" activeClassName="active">Booking</NavLink>
+          </li>
         </ul>
         {token!=null?
           <div>
             <Link to="/profile">
-              <button type="button" className="btn btn-info">Profile</button>
+              <button type="button" className="btn bg-orange"><i className="fas fa-user mr-2"></i>Profile</button>
             </Link>
-            <button type="button" className="btn btn-secondary ml-2" onClick={handleLogout}>Log out</button>
+            <button type="button" className="btn btn-secondary ml-2" onClick={handleLogout}><i className="fas fa-sign-out-alt mr-1"></i>Log out</button>
           </div>
           :<div>
             <Link to="/login">
               <button type="button" className="btn btn-info">Log in</button>
             </Link>
-            <Link to="/login">
+            <Link to="/signup">
               <button type="button" className="btn btn-secondary ml-2">Sign up</button>
             </Link>
           </div>}
       </nav>
       <Switch>
         <Route exact path="/">
+          <div className="bg-info text-center container my-3 py-1">
+            <h1 className="display-3 font-header">Welcome!</h1>
+            <p className="lead font-header font-italic">- Book your tickets and enjoy movies -</p>
+          </div>   
           <ListMovie/>
         </Route>
         <Route path="/login">
@@ -74,6 +82,9 @@ function App() {
         </Route>
         <Route path="/schedule">
           <Schedule/>
+        </Route>
+        <Route path="/booking">
+          {token!=null?<Booking/>:<Redirect to="/"/>}
         </Route>
         <Route path="*">
           <NotFound/>

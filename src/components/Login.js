@@ -29,8 +29,8 @@ function Login(props) {
           props.onReceiveToken(response.data.data.token);          
         })
         .catch(error => {
-          //console.log(error);
-          if(error.response.data.status===401)
+          console.log(error);
+          if(error.response.data&&error.response.data.status===401)
             setAlert(error.response.data.message);
         });
     }
