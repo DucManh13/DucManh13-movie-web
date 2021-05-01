@@ -22,6 +22,7 @@ function Login(props) {
     if(state.username===""||state.password==="") 
       setAlert("Please enter your username and password!");
     else{
+      setAlert("Verifying...please wait");
       var url="https://myplsapp.herokuapp.com/auth/login";
       axios.post(url,state)
         .then(response => {
@@ -55,8 +56,14 @@ function Login(props) {
             <button type="submit" className="btn btn-lg btn-danger mt-2" >Log in</button>
             <Link to="/signup">
               <button type="button" className="btn btn-lg btn-secondary ml-2 mt-2">Sign up</button>
-            </Link>
-          </form>  
+            </Link> 
+          </form>
+          <div className="container mt-2 text-center">
+          <Link to="/signup" className="text-decoration-none">
+              <span className="text-danger s-6 ">Forgot your password?</span>
+          </Link>  
+          </div>
+          
         </div>
         <div className="col-sm-6">
           <img src="img_movie.jpg" className="img-responsive w-100" alt=""/>

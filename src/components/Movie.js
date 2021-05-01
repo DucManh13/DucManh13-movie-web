@@ -1,4 +1,6 @@
-
+import  { Link } from 'react-router-dom';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Movie(props) {
   const movie={
@@ -11,8 +13,20 @@ function Movie(props) {
     trailer:'https://www.youtube-nocookie.com/embed/odM92ap8_c0',
     desc: 'Legends collide in “Godzilla vs. Kong” as these mythic adversaries meet in a spectacular battle for the ages, with the fate of the world hanging in the balance. Kong and his protectors undertake a perilous journey to find his true home, and with them is Jia, a young orphaned girl with whom he has formed a unique and powerful bond. But they unexpectedly find themselves in the path of an enraged Godzilla, cutting a swath of destruction across the globe. The epic clash between the two titans—instigated by unseen forces—is only the beginning of the mystery that lies deep within the core of the Earth.'
   }
+  const [data,setData]=useState();
+  
+  useEffect(()=>{
+    axios.get('a') 
+        .then(response => {console.log(data)
+          setData(response.data);
+        })
+    .catch(err => console.log(err));
+    
+  },[data]);
+
   return (
     <div className="container py-3 bg-light">
+      {data!==[]?null:(<div>
       <div className="row">
         <div className="col-sm-3">
         <img className="img-responsive w-100" src={movie.image} alt="Movie Poster"/>
@@ -34,7 +48,7 @@ function Movie(props) {
             <iframe className="embed-responsive-item" src={movie.trailer} title="Movie Trailer" allowfullscreen></iframe>
           </div>
         </div>
-      </div>  
+      </div></div>)}  
     </div>        
   );
 }

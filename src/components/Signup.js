@@ -26,7 +26,8 @@ function Signup() {
       name: "",
       email: "",
       address: ""
-    })
+    });
+    setAlertDisplay(false);
   };
   const handleSubmit=(event)=>{
     event.preventDefault();

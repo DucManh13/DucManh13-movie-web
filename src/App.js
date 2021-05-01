@@ -9,6 +9,7 @@ import ListMovie from './components/ListMovie';
 import Movie from './components/Movie';
 import Schedule from './components/Schedule';
 import Booking from './components/Booking';
+import EditProfile from './components/EditProfile';
 
 function App() {
   const [token, setToken] = useState();
@@ -32,7 +33,7 @@ function App() {
         <NavLink className="navbar-brand" to="/"><i className="fas fa-film mr-2"></i>MOVIE BOOKING</NavLink>
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <NavLink exact to="/listmovie" className="nav-link" activeClassName="active">Movie List</NavLink>
+            <NavLink exact to="/movie" className="nav-link" activeClassName="active">Movie List</NavLink>
           </li>
           <li className="nav-item">
             <NavLink exact to="/schedule" className="nav-link" activeClassName="active">Schedule</NavLink>
@@ -60,8 +61,8 @@ function App() {
       <Switch>
         <Route exact path="/">
           <div className="bg-info text-center container my-3 py-1">
-            <h1 className="display-3 font-header">Welcome!</h1>
-            <p className="lead font-header font-italic">- Book your tickets and enjoy movies -</p>
+            <p className="display-2 font-header mb-0">Welcome!</p>
+            <p className="s-4 font-header font-italic">- Book your tickets and enjoy movies -</p>
           </div>   
           <ListMovie/>
         </Route>
@@ -74,17 +75,21 @@ function App() {
         <Route path="/profile">
           <Profile/>
         </Route>
-        <Route path="/listmovie">
+        <Route path="/editprofile">
+          <EditProfile/>
+        </Route>
+        <Route exact path="/movie">
           <ListMovie/>
         </Route>
-        <Route path="/movie">
+        <Route exact path="/movie/:id">
           <Movie/>
         </Route>
         <Route path="/schedule">
           <Schedule/>
         </Route>
         <Route path="/booking">
-          {token!=null?<Booking/>:<Redirect to="/"/>}
+          {/* {token!=null?<Booking/>:<Redirect to="/"/>} */}
+          <Booking/>
         </Route>
         <Route path="*">
           <NotFound/>
