@@ -26,12 +26,10 @@ function Login(props) {
       var url="https://myplsapp.herokuapp.com/auth/login";
       axios.post(url,state)
         .then(response => {
-          //console.log(response);
           props.onReceiveToken(response.data.data.token);          
         })
         .catch(error => {
-          console.log(error);
-          if(error.response.data&&error.response.data.status===401)
+          if(error.response.data)
             setAlert(error.response.data.message);
         });
     }

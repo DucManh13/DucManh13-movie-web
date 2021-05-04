@@ -73,10 +73,10 @@ function App() {
           {token==null?<Signup/>:<Redirect to="/"/>}
         </Route>
         <Route path="/profile">
-          <Profile/>
+          {token!=null?<Profile token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route path="/editprofile">
-          <EditProfile/>
+        {token!=null?<EditProfile/>:<Redirect to="/"/>}
         </Route>
         <Route exact path="/movie">
           <ListMovie/>
@@ -88,8 +88,7 @@ function App() {
           <Schedule/>
         </Route>
         <Route path="/booking">
-          {/* {token!=null?<Booking/>:<Redirect to="/"/>} */}
-          <Booking/>
+          {token!=null?<Booking/>:<Redirect to="/"/>}
         </Route>
         <Route path="*">
           <NotFound/>
