@@ -1,7 +1,18 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function EditProfile(props) {
+  const [info,setInfo]= useState();
+
+  useEffect(()=>{
+    axios.get("https://myplsapp.herokuapp.com/auth/profile", { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+      .then(response => {console.log(response)
+        setInfo(response.data.data)
+      })
+    .catch(err => console.log(err));
+    
+  },[props.token]);
+
   const [state,setState]=useState({
     username: "",
     password: "",

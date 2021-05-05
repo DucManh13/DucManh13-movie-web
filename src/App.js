@@ -12,9 +12,9 @@ import Booking from './components/Booking';
 import EditProfile from './components/EditProfile';
 
 function App() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
   
-  useEffect(()=>{
+  useEffect(()=>{console.log(token)
     if(localStorage && localStorage.getItem('token'))
       setToken(JSON.parse(localStorage.getItem('token')));
   },[token]);
@@ -25,7 +25,7 @@ function App() {
   }
   const handleLogout=()=>{
     localStorage.removeItem('token');
-    setToken();
+    setToken(null);
   }
   return (
     <Router>
@@ -81,7 +81,7 @@ function App() {
         <Route exact path="/movie">
           <ListMovie/>
         </Route>
-        <Route exact path="/movie/:id">
+        <Route exact path="/movie/:movieId">
           <Movie/>
         </Route>
         <Route path="/schedule">

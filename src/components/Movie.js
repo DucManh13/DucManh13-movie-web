@@ -1,51 +1,44 @@
 // import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 
 function Movie(props) {
-  const movie={
-    id:1,
-    name:'Godzilla vs Kong',
-    genre:['Action','Fantasy'],
-    date:'24/03/2021',
-    duration:113,
-    image:'https://www.cgv.vn/media/catalog/product/cache/1/image/1800x/71252117777b696995f01934522c402d/g/o/godzilla_vs.jpg',
-    trailer:'https://www.youtube-nocookie.com/embed/odM92ap8_c0',
-    desc: 'Legends collide in “Godzilla vs. Kong” as these mythic adversaries meet in a spectacular battle for the ages, with the fate of the world hanging in the balance. Kong and his protectors undertake a perilous journey to find his true home, and with them is Jia, a young orphaned girl with whom he has formed a unique and powerful bond. But they unexpectedly find themselves in the path of an enraged Godzilla, cutting a swath of destruction across the globe. The epic clash between the two titans—instigated by unseen forces—is only the beginning of the mystery that lies deep within the core of the Earth.'
-  }
-  const [data,setData]=useState();
   
+  const [data,setData]=useState();
+  let { movieId } = useParams();
+
   useEffect(()=>{
-    axios.get('a') 
-        .then(response => {console.log(data)
-          setData(response.data);
+    axios.get('https://app-movie-genre-service.herokuapp.com/movie/?id='+movieId) 
+        .then(response => {console.log(response)
+          setData(response.data.data[0]);
         })
     .catch(err => console.log(err));
     
-  },[data]);
+  },[movieId]);
 
   return (
     <div className="container py-3 bg-light">
-      {data!==[]?null:(<div>
+      {data==null?null:(<div>
       <div className="row">
         <div className="col-sm-3">
-        <img className="img-responsive w-100" src={movie.image} alt="Movie Poster"/>
+        <img className="img-responsive w-100" src={data.poster} alt="Movie Poster"/>
         <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button> 
         </div>
         <div className="col-sm-9">
-          <h3>{movie.name}</h3>
+          <h3>{data.movie_name}</h3>
           <hr/>
-          <h4>Genre: <small>{movie.genre.join(', ')}</small></h4>
-          <h4>Release date: <small>{movie.date}</small></h4>
-          <h4>Duration: <small>{movie.duration} minutes</small></h4>
-          <h4 className="text-justify">Description: <small>{movie.desc}</small></h4>
+          {/* <h4>Genre: <small>{movie.genre_name.join(', ')}</small></h4> */}
+          <h4>Release date: <small>{data.release_date}</small></h4>
+          <h4>Duration: <small>{data.duration} minutes</small></h4>
+          <h4 className="text-justify">Description: <small>{data.description}</small></h4>
         </div>
       </div>
       <div className="row mt-3">
         <div className="col-sm-7 offset-sm-3">
           <h4>Trailer:</h4>
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe className="embed-responsive-item" src={movie.trailer} title="Movie Trailer" allowfullscreen></iframe>
+            <iframe className="embed-responsive-item" src={data.trailer} title="Movie Trailer" allowFullScreen></iframe>
           </div>
         </div>
       </div></div>)}  
