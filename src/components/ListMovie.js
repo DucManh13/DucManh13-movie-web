@@ -21,7 +21,7 @@ function ListMovie(props) {
       <h3>Available Movies</h3>
       <hr/>
       {list==null?null:(
-      <div className="row row-cols-md-3">
+      <div className="row row-cols-md-3 row-cols-2">
         {list.map((movie,index)=>
           (<div key={index} className="col pb-5">
             <div className="card ">

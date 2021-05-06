@@ -28,7 +28,7 @@ function Movie(props) {
         <div className="col-sm-9">
           <h3>{data.movie_name}</h3>
           <hr/>
-          {/* <h4>Genre: <small>{movie.genre_name.join(', ')}</small></h4> */}
+          <h4>Genre: <small>{data.genre_name.join(', ')}</small></h4>
           <h4>Release date: <small>{data.release_date}</small></h4>
           <h4>Duration: <small>{data.duration} minutes</small></h4>
           <h4 className="text-justify">Description: <small>{data.description}</small></h4>
@@ -38,8 +38,9 @@ function Movie(props) {
         <div className="col-sm-7 offset-sm-3">
           <h4>Trailer:</h4>
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe className="embed-responsive-item" src={data.trailer} title="Movie Trailer" allowFullScreen></iframe>
+            <iframe className="embed-responsive-item" src={data.trailer} title="Movie Trailer" allowFullScreen alt="Movie Trailer">Uns</iframe>
           </div>
+          
         </div>
       </div></div>)}  
     </div>        

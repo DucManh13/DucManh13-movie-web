@@ -14,7 +14,7 @@ import EditProfile from './components/EditProfile';
 function App() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
   
-  useEffect(()=>{console.log(token)
+  useEffect(()=>{
     if(localStorage && localStorage.getItem('token'))
       setToken(JSON.parse(localStorage.getItem('token')));
   },[token]);

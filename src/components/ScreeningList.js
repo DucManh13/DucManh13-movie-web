@@ -28,7 +28,7 @@ function ScreeningList(props) {
   ]
   return (
     <div className="container pt-4 ">
-      <div className="row row-cols-6">
+      <div className="row row-cols-lg-6 row-cols-md-4 row-cols-3">
         {screenings.map((screening,index)=>
           (<div key={index} className="col pb-3">
             <button className=" btn bg-white2 border w-100">

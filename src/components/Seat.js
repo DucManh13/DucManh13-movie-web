@@ -1,13 +1,10 @@
-import { useState} from 'react';
 
 function Seat(props) {
-  const [state,setState]=useState(false);
-
   const toggleState=()=>{
-      setState(!state);
+      props.onReceiveClick(props.number);
   }
-  return props.status===true?(
-    <div className={`bg-white2 border pointer user-select-none ${state?'bg-success text-white':''}`} onClick={toggleState}>{props.number}</div>)
+  return props.status>=0?(
+    <div className={`bg-white2 border pointer user-select-none ${props.status===1?'bg-success text-white':''}`} onClick={toggleState}>{props.number}</div>)
     :(<div className="bg-danger border user-select-none text-white">{props.number}</div>);
 }
 
