@@ -21,7 +21,7 @@ function ListMovie(props) {
       <h3>Available Movies</h3>
       <hr/>
       {list==null?null:(
-      <div className="row row-cols-md-3 row-cols-2">
+      <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         {list.map((movie,index)=>
           (<div key={index} className="col pb-5">
             <div className="card ">
@@ -29,7 +29,7 @@ function ListMovie(props) {
                 <img className="card-img-top" src={movie.poster} alt="Movie Poster"/>
               </Link>    
               <div className="card-body bg-silver">
-                <h4 className="card-title">{movie.name}</h4>
+                <h4 className="card-title">{movie.movie_name}</h4>
                 <div className="card-text">
                   <h6>Genre: <small>{movie.genre_name.join(", ")}</small></h6>
                   <h6>Release date: <small>{movie.release_date}</small></h6>
