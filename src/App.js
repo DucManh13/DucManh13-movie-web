@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import ListMovie from './components/ListMovie';
 import Movie from './components/Movie';
 import Schedule from './components/Schedule';
+import MovieSchedule from './components/MovieSchedule';
 import Booking from './components/Booking';
 import EditProfile from './components/EditProfile';
 
@@ -37,9 +38,6 @@ function App() {
           </li>
           <li className="nav-item">
             <NavLink exact to="/schedule" className="nav-link" activeClassName="active">Schedule</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink exact to="/booking" className="nav-link" activeClassName="active">Booking</NavLink>
           </li>
         </ul>
         {token!=null?
@@ -84,8 +82,11 @@ function App() {
         <Route exact path="/movie/:movieId">
           <Movie/>
         </Route>
-        <Route path="/schedule">
+        <Route exact path="/schedule">
           <Schedule/>
+        </Route>
+        <Route path="/schedule/:movieId">
+          <MovieSchedule/>
         </Route>
         <Route path="/booking">
           {token!=null?<Booking/>:<Redirect to="/"/>}

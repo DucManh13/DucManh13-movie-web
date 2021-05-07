@@ -35,7 +35,9 @@ function ListMovie(props) {
                   <h6>Release date: <small>{movie.release_date}</small></h6>
                   <h6>Duration: <small>{movie.duration} minutes</small></h6>
                 </div>
-                <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button> 
+                <Link to={`/schedule/${movie.movie_id}`}>
+                  <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button>
+                </Link> 
               </div>
             </div>    
           </div>))}

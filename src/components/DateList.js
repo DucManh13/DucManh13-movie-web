@@ -11,7 +11,7 @@ function DateList(props) {
       .then(response => {
         if (mounted) {
           setDates(response.data.data);
-          props.onReceiveActiveDay(response.data.data[0].date_id);
+          handleActiveDay(0,response.data.data[0].date_id);
         }  
       })
       .catch(err => console.log(err));
@@ -19,7 +19,7 @@ function DateList(props) {
     return ()=>{mounted=false;}
   },[]);
   
-  const handleClick=(index,dateId)=>{
+  const handleActiveDay=(index,dateId)=>{
     props.onReceiveActiveDay(dateId);
     setActiveDay(index);
   }
@@ -28,7 +28,7 @@ function DateList(props) {
       <div className="row row-cols-lg-6 row-cols-md-4 row-cols-3">
         {dates.map((date,index)=>
           (<div key={index} className="col pb-2">
-            <button className={`btn ${index===activeDay?'btn-dark':'bg-white2 border'} w-100`} onClick={()=>handleClick(index,date.date_id)}>
+            <button className={`btn ${index===activeDay?'btn-dark':'bg-white2 border'} w-100`} onClick={()=>handleActiveDay(index,date.date_id)}>
               <div className="s-6">{date.day.slice(0,3)}</div>
               <div className="s-2">{date.date.slice(8,10)}{index===0||date.date.slice(8,10)==="01"?'/'+date.date.slice(5,7):''}</div>
             </button>    

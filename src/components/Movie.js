@@ -1,4 +1,4 @@
-// import  { Link } from 'react-router-dom';
+import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ function Movie(props) {
 
   useEffect(()=>{
     axios.get('https://app-movie-genre-service.herokuapp.com/movie/?id='+movieId) 
-        .then(response => {console.log(response)
+        .then(response => {
           setData(response.data.data[0]);
         })
     .catch(err => console.log(err));
@@ -23,7 +23,9 @@ function Movie(props) {
       <div className="row">
         <div className="col-sm-3">
         <img className="img-responsive w-100" src={data.poster} alt="Movie Poster"/>
-        <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button> 
+        <Link to={`/schedule/${movieId}`}>
+          <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button> 
+        </Link>
         </div>
         <div className="col-sm-9">
           <h3>{data.movie_name}</h3>
