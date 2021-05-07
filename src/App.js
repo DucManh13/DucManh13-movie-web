@@ -74,7 +74,7 @@ function App() {
           {token!=null?<Profile token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route path="/editprofile">
-        {token!=null?<EditProfile/>:<Redirect to="/"/>}
+        {token!=null?<EditProfile token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route exact path="/movie">
           <ListMovie/>

@@ -31,9 +31,9 @@ function ListMovie(props) {
               <div className="card-body bg-silver">
                 <h4 className="card-title">{movie.movie_name}</h4>
                 <div className="card-text">
-                  <h6>Genre: <small>{movie.genre_name.join(", ")}</small></h6>
-                  <h6>Release date: <small>{movie.release_date}</small></h6>
-                  <h6>Duration: <small>{movie.duration} minutes</small></h6>
+                  <h5>Genre: <small>{movie.genre_name.join(", ")}</small></h5>
+                  <h5>Release date: <small>{movie.release_date}</small></h5>
+                  <h5>Duration: <small>{movie.duration} minutes</small></h5>
                 </div>
                 <Link to={`/schedule/${movie.movie_id}`}>
                   <button className="btn btn-danger mt-2 w-100"><b>BOOKING</b></button>

@@ -26,6 +26,7 @@ function Profile(props) {
       <hr/>
       {info==null?"":(
         <div>
+          <h4>Username: {info.username}</h4>
           <h4>Name: {info.userDto.name}</h4>
           <h4>Age: {info.userDto.age}</h4>
           <h4>Email: {info.userDto.email}</h4>
