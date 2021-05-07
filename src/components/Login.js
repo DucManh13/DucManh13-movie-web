@@ -7,7 +7,7 @@ function Login(props) {
     username: "",
     password: "",
   });
-  const [alert,setAlert]=useState("");
+  const [message,setMessage]=useState("");
   
   const handleChange=(event)=>{
     var {name,value}=event.target;
@@ -15,14 +15,14 @@ function Login(props) {
       ...prevState,
       [name] : value
     }));
-    setAlert("");
+    setMessage("");
   };
   const handleSubmit=(event)=>{
     event.preventDefault();
     if(state.username===""||state.password==="") 
-      setAlert("Please enter your username and password!");
+      setMessage("Please enter your username and password!");
     else{
-      setAlert("Verifying...please wait");
+      setMessage("Verifying...please wait");
       var url="https://myplsapp.herokuapp.com/auth/login";
       axios.post(url,state)
         .then(response => {
@@ -30,7 +30,7 @@ function Login(props) {
         })
         .catch(error => {
           if(error.response.data)
-            setAlert(error.response.data.message);
+            setMessage(error.response.data.message);
         });
     }
   }
@@ -50,7 +50,7 @@ function Login(props) {
               <input type="password"
                 className="form-control col-sm-8" name="password" value={state.password} onChange={handleChange} placeholder="Password"/>
             </div>
-            {alert!==""?<p className="text-danger">{alert}</p>:''}
+            {message!==""?<div className="alert alert-danger mx-5"><strong>{message}</strong></div>:''}
             <button type="submit" className="btn btn-lg btn-danger mt-2" >Log in</button>
             <Link to="/signup">
               <button type="button" className="btn btn-lg btn-secondary ml-2 mt-2">Sign up</button>

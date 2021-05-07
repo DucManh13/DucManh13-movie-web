@@ -103,7 +103,7 @@ function Signup(props) {
               <input type="text"
                 className="form-control col-sm-8" name="address" value={state.address} onChange={handleChange} placeholder="Address"/>
             </div>
-            {message!==""?<p className="text-danger">{message}</p>:''}
+            {message!==""?<div className="alert alert-danger mx-5"><strong>{message}</strong></div>:''}
             <button type="submit" className="btn btn-lg btn-danger mt-1" >Sign up</button>
             <button type="button" className="btn btn-lg btn-secondary mt-1 ml-2" onClick={handleReset}>Reset</button>
           </form>  

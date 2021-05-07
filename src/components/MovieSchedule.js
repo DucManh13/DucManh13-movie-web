@@ -30,7 +30,7 @@ function Schedule(props) {
       <h3>Movie Schedule</h3>
       <DateList onReceiveActiveDay={(dateId)=>setActiveDay(dateId)}/>
       <hr/>
-      {!schedule?null:schedule.movie.length===0?"No movie scheduled for this day yet":
+      {!schedule?null:schedule.movie.length===0?"No screening scheduled for this day yet":
         <div className="row my-4">
           <div className="col-sm-3">
             <Link to={`/movie/${schedule.movie[0].data[0].movie_id}`}>

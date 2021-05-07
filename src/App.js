@@ -89,7 +89,7 @@ function App() {
           <MovieSchedule/>
         </Route>
         <Route path="/booking">
-          {token!=null?<Booking/>:<Redirect to="/"/>}
+          {token!=null?<Booking/>:<Redirect to="/login"/>}
         </Route>
         <Route path="*">
           <NotFound/>

@@ -17,6 +17,7 @@ function EditProfile(props) {
     username: "",
     password: "",
     name: "",
+    age:"",
     email: "",
     address: ""
   });
@@ -35,6 +36,7 @@ function EditProfile(props) {
       username: "",
       password: "",
       name: "",
+      age:"",
       email: "",
       address: ""
     });
@@ -42,7 +44,7 @@ function EditProfile(props) {
   };
   const handleSubmit=(event)=>{
     event.preventDefault();
-    if(state.username===""||state.password===""||state.name===""||state.email===""||state.address==="") setAlertDisplay(true);
+    if(state.username===""||state.password===""||state.name===""||state.age===""||state.email===""||state.address==="") setAlertDisplay(true);
     else{
 
     }
@@ -54,7 +56,7 @@ function EditProfile(props) {
             <div className="form-group row">
               <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-user text-danger"></i></label>
               <input type="text"
-                className="form-control col-sm-8" name="username" value={state.username} onChange={handleChange} placeholder="Username"/>
+                className="form-control col-sm-8" name="username" value={state.username} disabled onChange={handleChange} placeholder="Username"/>
             </div>
             <div className="form-group row pt-1">
               <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-lock text-danger"></i></label>
@@ -66,6 +68,11 @@ function EditProfile(props) {
               <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-portrait text-danger"></i></label>
               <input type="text"
                 className="form-control col-sm-8" name="name" value={state.name} onChange={handleChange} placeholder="Name"/>
+            </div>
+            <div className="form-group row pt-1">
+              <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-calendar-alt text-danger"></i></label>
+              <input type="text"
+                className="form-control col-sm-8" name="age" value={state.age} onChange={handleChange} placeholder="Age"/>
             </div>
             <div className="form-group row pt-1">
               <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-envelope text-danger"></i></label>
