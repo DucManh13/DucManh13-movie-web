@@ -38,9 +38,15 @@ function Signup(props) {
     if(state.username===""||state.password===""||state.name===""||state.age===""||state.email===""||state.address==="") 
       setMessage("Please enter all information!");
     else{
-      setMessage("Signing up...please wait");
+      setMessage("Signing up...Please wait");
       var url="https://myplsapp.herokuapp.com/auth/register";
       let info = {
+        actions: [
+          {
+            actname: "READ",
+            id: 2
+          }
+        ],
         password : state.password,
         roles: [
           {
@@ -71,7 +77,7 @@ function Signup(props) {
       <div className="row">
         <div className="col-sm-6 pb-2 bg-light">
           <form onSubmit={handleSubmit}>
-            <h2 className="mt-3 pb-1 text-danger ">SIGN UP</h2>
+            <h2 className="mt-3 pb-2 text-danger ">SIGN UP</h2>
             <div className="form-group row">
               <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-user text-danger"></i></label>
               <input type="text"
@@ -103,12 +109,14 @@ function Signup(props) {
               <input type="text"
                 className="form-control col-sm-8" name="address" value={state.address} onChange={handleChange} placeholder="Address"/>
             </div>
-            {message!==""?<div className="alert alert-danger mx-5"><strong>{message}</strong></div>:''}
+            {message===""?null:<div className="alert alert-danger mx-5 my-2 py-1">
+              {message==="Signing up...Please wait"?<div className="spinner-border spinner-border-sm mr-2"/>:null}
+              <strong>{message}</strong></div>}
             <button type="submit" className="btn btn-lg btn-danger mt-1" >Sign up</button>
             <button type="button" className="btn btn-lg btn-secondary mt-1 ml-2" onClick={handleReset}>Reset</button>
           </form>  
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-6 pl-2 pr-1">
           <img src="img_movie.jpg" className="img-responsive w-100" alt=""/>
         </div>          
       </div>

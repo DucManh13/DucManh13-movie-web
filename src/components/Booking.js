@@ -1,5 +1,5 @@
 import Seat from "./Seat";
-import  { Link } from 'react-router-dom';
+import {PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
 
 function Booking(props) {
@@ -48,19 +48,19 @@ function Booking(props) {
               <h4 className="col-sm-5 offset-1">Ticket price:</h4>
               <h4 className="col-sm-6">{price}</h4>
             </div>
-            <div className="row">
+            <div className="row mt-2">
               <h4 className="col-sm-5 offset-1">Tickets:</h4>
               <h4 className="col-sm-6">{ticket}</h4>
             </div>
-            <div className="row">
+            <div className="row mt-2">
               <h4 className="col-sm-5 offset-1">Total amount:</h4>
               <h4 className="col-sm-6">{ticket*price}</h4>
             </div>
-            <div className="text-center mt-4">
-              <Link to="/editprofile">
-                <button type="button" className="btn btn-lg btn-danger ">Confirm</button>
-              </Link>
-              <button type="button" className="btn btn-lg ml-1 btn-secondary" onClick={handleReset}>Reset</button>
+            <div className="row mt-4">
+              <div className="col-sm-5 offset-1">
+                <PayPalButtons createOrder={createOrder} onApprove={onApprove} style={{ color: "blue", shape: "rect", layout:"horizontal", label:"paypal",height: 47.3,tagline:false}} />
+             </div>
+              <div className="col-sm-5 offset-sm-0 offset-1"><button type="button" className="btn btn-lg btn-secondary w-100" onClick={handleReset}>Reset</button></div>
             </div>    
           </div>              
         </div>
@@ -70,3 +70,21 @@ function Booking(props) {
 }
 
 export default Booking;
+
+const createOrder= function(data, actions) {
+  // This function sets up the details of the transaction, including the amount and line item details.
+  return actions.order.create({
+    purchase_units: [{
+      amount: {
+        value: '0.01'
+      }
+    }]
+  });
+};
+const onApprove= function(data, actions) {
+  // This function captures the funds from the transaction.
+  return actions.order.capture().then(function(details) {console.log(details)
+    // This function shows a transaction success message to your buyer.
+    alert('Transaction completed by ' + details.payer.name.given_name);
+  });
+}

@@ -14,11 +14,11 @@ function Profile(props) {
     
     return ()=>{mounted=false;}
   },[props.token]);
-
+  
   return (
     <div className="container py-3 px-5 bg-light">
       <div className="d-flex">
-        <h2 className="mr-auto">Profile</h2>
+        <h2 className="mr-auto">User Profile</h2>
         <Link to="/editprofile">
           <button type="button" className="btn btn-lg btn-danger ">Edit Profile</button>
         </Link> 
@@ -27,42 +27,42 @@ function Profile(props) {
       {info==null?"":(
         <div className="container">
           <div className="row">
-            <div className="col-lg-2 col-md-3 col-4">
+            <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Username:</h4>
             </div>
-            <div className="col-lg-10 col-md-9 col-8">
+            <div className="col-lg-10 col-md-9 col-sm-8">
               <h4>{info.username}</h4>
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-2 col-md-3 col-4">
+            <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Name:</h4>
             </div>
-            <div className="col-lg-10 col-md-9 col-8">
+            <div className="col-lg-10 col-md-9 col-sm-8">
               <h4>{info.userDto.name}</h4>
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-2 col-md-3 col-4">
+            <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Age:</h4>
             </div>
-            <div className="col-lg-10 col-md-9 col-8">
+            <div className="col-lg-10 col-md-9 col-sm-8">
               <h4>{info.userDto.age}</h4>
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-2 col-md-3 col-4">
+            <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Email:</h4>
             </div>
-            <div className="col-lg-10 col-md-9 col-8">
+            <div className="col-lg-10 col-md-9 col-sm-8 s-3">
               <h4>{info.userDto.email}</h4>
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-2 col-md-3 col-4">
+            <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Address:</h4>
             </div>
-            <div className="col-lg-10 col-md-9 col-8">
+            <div className="col-lg-10 col-md-9 col-sm-8">
               <h4>{info.userDto.address}</h4>
             </div>
           </div>  

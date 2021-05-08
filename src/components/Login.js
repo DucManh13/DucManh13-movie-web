@@ -22,7 +22,7 @@ function Login(props) {
     if(state.username===""||state.password==="") 
       setMessage("Please enter your username and password!");
     else{
-      setMessage("Verifying...please wait");
+      setMessage("Verifying...Please wait");
       var url="https://myplsapp.herokuapp.com/auth/login";
       axios.post(url,state)
         .then(response => {
@@ -50,7 +50,9 @@ function Login(props) {
               <input type="password"
                 className="form-control col-sm-8" name="password" value={state.password} onChange={handleChange} placeholder="Password"/>
             </div>
-            {message!==""?<div className="alert alert-danger mx-5"><strong>{message}</strong></div>:''}
+            {message===""?null:<div className="alert alert-danger mx-5">
+              {message==="Verifying...Please wait"?<div className="spinner-border spinner-border-sm mr-2"/>:null}
+              <strong>{message}</strong></div>}
             <button type="submit" className="btn btn-lg btn-danger mt-2" >Log in</button>
             <Link to="/signup">
               <button type="button" className="btn btn-lg btn-secondary ml-2 mt-2">Sign up</button>
@@ -63,7 +65,7 @@ function Login(props) {
           </div>
           
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-6 pl-2 pr-1">
           <img src="img_movie.jpg" className="img-responsive w-100" alt=""/>
         </div>          
       </div>

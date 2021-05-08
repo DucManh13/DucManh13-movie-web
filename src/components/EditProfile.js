@@ -40,7 +40,7 @@ function EditProfile(props) {
     });
     setMessage("");
   };
-
+  
   const handleSubmit=(event)=>{
     event.preventDefault();
     if(state.name===""||state.age===""||state.email===""||state.address==="")
@@ -98,7 +98,9 @@ function EditProfile(props) {
           <input type="text"
             className="form-control col-sm-8" name="address" value={state.address} onChange={handleChange} placeholder="Address"/>
         </div>
-        {message!==""?<div className="alert alert-danger mx-5"><strong>{message}</strong></div>:''}
+        {message===""?null:<div className="alert alert-danger mx-5">
+          {message==="Please wait..."?<div className="spinner-border spinner-border-sm mr-2"/>:null}
+          <strong>{message}</strong></div>}
         <div className="text-center">
             <button type="submit" className="btn btn-lg btn-danger mt-2" >Submit</button>
             <button type="button" className="btn btn-lg btn-secondary mt-2 ml-2" onClick={handleReset}>Reset</button>

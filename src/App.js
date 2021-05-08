@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, NavLink, Link, Route, Switch, Redirect } from 'react-router-dom';
+import { PayPalScriptProvider} from "@paypal/react-paypal-js";
 import { useState, useEffect } from 'react';
 import ScrollToTop from "react-scroll-up";
 import './App.css';
@@ -30,6 +31,7 @@ function App() {
     setToken(null);
   }
   return (
+    <PayPalScriptProvider options={{ "client-id": "test" }}>
     <Router>
       <nav className="navbar navbar-expand-sm navbar-dark bg-danger">
         <NavLink className="navbar-brand" to="/"><i className="fas fa-film mr-2"></i>MOVIE BOOKING</NavLink>
@@ -106,7 +108,8 @@ function App() {
         <button className="btn btn-lg btn-info"><i className="fas fa-lg fa-angle-up"></i></button>
       </ScrollToTop>
 
-    </Router>    
+    </Router>  
+    </PayPalScriptProvider>  
   );
 }
 
