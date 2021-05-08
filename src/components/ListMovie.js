@@ -1,7 +1,6 @@
 import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 function ListMovie(props) {
   const [list,setList]=useState();
   
@@ -23,7 +22,7 @@ function ListMovie(props) {
       {list==null?null:(
       <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         {list.map((movie,index)=>
-          (<div key={index} className="col pb-5">
+          (<div key={index} className="col pb-5 px-4">
             <div className="card ">
               <Link to={`/movie/${movie.movie_id}`}>
                 <img className="card-img-top" src={movie.poster} alt="Movie Poster"/>

@@ -6,14 +6,29 @@ import DateList from "./DateList";
 import ScreeningList from './ScreeningList';
 
 function Schedule(props) {
-  const [activeDay,setActiveDay]=useState(-1);
+  const [dates,setDates]=useState();
+  const [activeDay,setActiveDay]=useState();
   const [schedule,setSchedule]=useState();
   let { movieId } = useParams();
 
   useEffect(()=>{
     let mounted=true;
-    if(activeDay>=0){
-      axios.get("https://app-screening-service.herokuapp.com/screening/?date_id="+activeDay) 
+    axios.get("https://app-screening-service.herokuapp.com/date") 
+      .then(response => {
+        if (mounted) {
+          setDates(response.data.data);
+          setActiveDay(response.data.data[0].date_id);
+        }  
+      })
+      .catch(err => console.log(err));
+    
+    return ()=>{mounted=false;}
+  },[]);
+
+  useEffect(()=>{
+    let mounted=true;
+    if(activeDay){
+      axios.get("https://app-screening-service.herokuapp.com/screening-date/?date_id="+activeDay) 
       .then(response => {
         if (mounted) 
           setSchedule({
@@ -28,9 +43,10 @@ function Schedule(props) {
   return (
     <div className="container py-3 px-5 bg-light">
       <h3>Movie Schedule</h3>
-      <DateList onReceiveActiveDay={(dateId)=>setActiveDay(dateId)}/>
+      {!(dates&&activeDay)?null:
+        <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={(dateId)=>setActiveDay(dateId)}/>}
       <hr/>
-      {!schedule?null:schedule.movie.length===0?"No screening scheduled for this day yet":
+      {!schedule?null:schedule.movie.length===0?"No screening of this movie scheduled for this day yet":
         <div className="row my-4">
           <div className="col-sm-3">
             <Link to={`/movie/${schedule.movie[0].data[0].movie_id}`}>

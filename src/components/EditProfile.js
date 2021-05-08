@@ -47,7 +47,7 @@ function EditProfile(props) {
       setMessage("Please enter all information!");
     else{
       setMessage("Please wait...");
-      var url="https://myplsapp.herokuapp.com/rest-account/accounts";
+      var url="https://myplsapp.herokuapp.com/rest-account/editUserInfor";
       let info = {
         id : state.id,
         userDto: {

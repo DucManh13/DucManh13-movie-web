@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, NavLink, Link, Route, Switch, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import ScrollToTop from "react-scroll-up";
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -32,49 +33,54 @@ function App() {
     <Router>
       <nav className="navbar navbar-expand-sm navbar-dark bg-danger">
         <NavLink className="navbar-brand" to="/"><i className="fas fa-film mr-2"></i>MOVIE BOOKING</NavLink>
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <NavLink exact to="/movie" className="nav-link" activeClassName="active">Movie List</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink exact to="/schedule" className="nav-link" activeClassName="active">Schedule</NavLink>
-          </li>
-        </ul>
-        {token!=null?
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="collapsibleNavId">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <NavLink exact to="/movie" className="nav-link" activeClassName="active">Movie List</NavLink>
+            </li>
+            <li className="nav-item ">
+              <NavLink exact to="/schedule" className="nav-link" activeClassName="active">Schedule</NavLink>
+            </li>
+          </ul>
+        </div>
+        {token?
           <div>
             <Link to="/profile">
-              <button type="button" className="btn bg-orange"><i className="fas fa-user mr-2"></i>Profile</button>
+              <button type="button" className="btn bg-warning"><i className="fas fa-user mr-2"></i>Profile</button>
             </Link>
             <button type="button" className="btn btn-secondary ml-2" onClick={handleLogout}><i className="fas fa-sign-out-alt mr-1"></i>Log out</button>
           </div>
           :<div>
             <Link to="/login">
-              <button type="button" className="btn btn-info">Log in</button>
+              <button type="button" className="btn btn-info"><i className="fas fa-sign-in-alt mr-1"></i>Log in</button>
             </Link>
             <Link to="/signup">
-              <button type="button" className="btn btn-secondary ml-2">Sign up</button>
+              <button type="button" className="btn btn-secondary ml-2"><i className="fas fa-user-plus mr-1"></i>Sign up</button>
             </Link>
           </div>}
       </nav>
+
       <Switch>
         <Route exact path="/">
-          <div className="bg-info text-center container my-3 py-1">
-            <p className="display-2 font-header mb-0">Welcome!</p>
-            <p className="s-4 font-header font-italic">- Book your tickets and enjoy movies -</p>
+          <div className="container my-3 py-1 px-0">
+            <img src="img_welcome.jpg" className="img-responsive w-100" alt=""/>
           </div>   
           <ListMovie/>
         </Route>
         <Route path="/login">
-          {token==null?<Login onReceiveToken={handleToken}/>:<Redirect to="/"/>}
+          {!token?<Login onReceiveToken={handleToken}/>:<Redirect to="/"/>}
         </Route>
         <Route path="/signup">
-          {token==null?<Signup/>:<Redirect to="/"/>}
+          {!token?<Signup/>:<Redirect to="/"/>}
         </Route>
         <Route path="/profile">
-          {token!=null?<Profile token={token}/>:<Redirect to="/"/>}
+          {token?<Profile token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route path="/editprofile">
-        {token!=null?<EditProfile token={token}/>:<Redirect to="/"/>}
+        {token?<EditProfile token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route exact path="/movie">
           <ListMovie/>
@@ -89,15 +95,18 @@ function App() {
           <MovieSchedule/>
         </Route>
         <Route path="/booking">
-          {token!=null?<Booking/>:<Redirect to="/login"/>}
+          {token?<Booking/>:<Redirect to="/login"/>}
         </Route>
         <Route path="*">
           <NotFound/>
         </Route>
       </Switch>
-    </Router>
-      
-      
+
+      <ScrollToTop showUnder={160}>
+        <button className="btn btn-lg btn-info"><i className="fas fa-lg fa-angle-up"></i></button>
+      </ScrollToTop>
+
+    </Router>    
   );
 }
 
