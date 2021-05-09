@@ -72,31 +72,31 @@ function EditProfile(props) {
     <div className="container py-3 px-5 bg-light ">
       <h2>Edit Profile</h2>
       <hr/>
-      {state==null?"":(<form onSubmit={handleSubmit}>            
+      {!state?null:(<form onSubmit={handleSubmit}>            
         <div className="form-group row">
-          <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-user text-danger"></i></label>
+          <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-user text-danger"></i></label>
           <input type="text"
-            className="form-control col-sm-8" name="username" value={state.username} disabled onChange={handleChange} placeholder="Username"/>
+            className="form-control col-sm-6" name="username" value={state.username} disabled onChange={handleChange} placeholder="Username"/>
         </div>
         <div className="form-group row pt-1">
-          <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-portrait text-danger"></i></label>
+          <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-portrait text-danger"></i></label>
           <input type="text"
-            className="form-control col-sm-8" name="name" value={state.name} onChange={handleChange} placeholder="Name"/>
+            className="form-control col-sm-6" name="name" value={state.name} onChange={handleChange} placeholder="Name"/>
         </div>
         <div className="form-group row pt-1">
-          <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-calendar-alt text-danger"></i></label>
+          <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-calendar-alt text-danger"></i></label>
           <input type="number"
-            className="form-control col-sm-8" name="age" value={state.age} onChange={handleChange} placeholder="Age"/>
+            className="form-control col-sm-6" name="age" value={state.age} onChange={handleChange} placeholder="Age"/>
         </div>
         <div className="form-group row pt-1">
-          <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-envelope text-danger"></i></label>
+          <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-envelope text-danger"></i></label>
           <input type="text"
-            className="form-control col-sm-8" name="email" value={state.email} onChange={handleChange} placeholder="Email"/>
+            className="form-control col-sm-6" name="email" value={state.email} onChange={handleChange} placeholder="Email"/>
         </div>
         <div className="form-group row pt-1">
-          <label htmlFor="" className="col-sm-1 offset-sm-1 mt-1"><i className="fas fa-home text-danger"></i></label>
+          <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-home text-danger"></i></label>
           <input type="text"
-            className="form-control col-sm-8" name="address" value={state.address} onChange={handleChange} placeholder="Address"/>
+            className="form-control col-sm-6" name="address" value={state.address} onChange={handleChange} placeholder="Address"/>
         </div>
         {message===""?null:<div className="alert alert-danger mx-5">
           {message==="Please wait..."?<div className="spinner-border spinner-border-sm mr-2"/>:null}

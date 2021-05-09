@@ -20,7 +20,7 @@ function ListMovie(props) {
     <div className="container py-3 px-5 bg-light">
       <h3 className="py-2">Available Movies</h3>
       <hr className="mb-4"/>
-      {list==null?null:(
+      {!list?null:(
       <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         {list.map((movie,index)=>
           (<div key={index} className="col pb-5 px-4">

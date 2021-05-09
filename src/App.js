@@ -14,6 +14,7 @@ import MovieSchedule from './components/MovieSchedule';
 import Booking from './components/Booking';
 import EditProfile from './components/EditProfile';
 import Welcome from './components/Welcome';
+import ChangePassword from './components/ChangePassword';
 
 function App() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
@@ -82,6 +83,9 @@ function App() {
         </Route>
         <Route path="/editprofile">
         {token?<EditProfile token={token}/>:<Redirect to="/"/>}
+        </Route>
+        <Route path="/changepass">
+        {token?<ChangePassword token={token}/>:<Redirect to="/"/>}
         </Route>
         <Route exact path="/movie">
           <ListMovie/>

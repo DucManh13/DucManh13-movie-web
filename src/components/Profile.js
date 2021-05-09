@@ -20,11 +20,14 @@ function Profile(props) {
       <div className="d-flex">
         <h2 className="mr-auto">User Profile</h2>
         <Link to="/editprofile">
-          <button type="button" className="btn btn-lg btn-danger ">Edit Profile</button>
-        </Link> 
+          <button type="button" className="btn btn-lg mr-2 btn-warning "><i className="fas fa-edit mr-2"></i>Edit Profile</button>
+        </Link>
+        <Link to="/changepass">
+          <button type="button" className="btn btn-lg btn-info ">Change Password</button>
+        </Link>
       </div>
       <hr/>
-      {info==null?"":(
+      {!info?null:(
         <div className="container">
           <div className="row">
             <div className="col-lg-2 col-md-3 col-sm-4">

@@ -19,7 +19,7 @@ function Movie(props) {
 
   return (
     <div className="container py-3 bg-light">
-      {data==null?null:(<div>
+      {!data?null:(<div>
       <div className="row">
         <div className="col-sm-3">
         <img className="img-responsive w-100" src={data.poster} alt="Movie Poster"/>
@@ -40,7 +40,7 @@ function Movie(props) {
         <div className="col-sm-7 offset-sm-3">
           <h4>Trailer:</h4>
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe className="embed-responsive-item" src={data.trailer} title="Movie Trailer" allowFullScreen alt="Movie Trailer">Uns</iframe>
+            <iframe className="embed-responsive-item" src={data.trailer} title="Movie Trailer" allowFullScreen alt="Movie Trailer"></iframe>
           </div>
           
         </div>
