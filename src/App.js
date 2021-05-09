@@ -13,6 +13,7 @@ import Schedule from './components/Schedule';
 import MovieSchedule from './components/MovieSchedule';
 import Booking from './components/Booking';
 import EditProfile from './components/EditProfile';
+import Welcome from './components/Welcome';
 
 function App() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
@@ -31,7 +32,7 @@ function App() {
     setToken(null);
   }
   return (
-    <PayPalScriptProvider options={{ "client-id": "test" }}>
+    <PayPalScriptProvider options={{ "client-id": "AecXLRdMbRinhm8xaqYRmf-qFPfP6LL5NK_83DrA2yNnnm0sz4S61Ph7fY9MnMocCxO3laO766mSSUL2" }}>
     <Router>
       <nav className="navbar navbar-expand-sm navbar-dark bg-danger">
         <NavLink className="navbar-brand" to="/"><i className="fas fa-film mr-2"></i>MOVIE BOOKING</NavLink>
@@ -67,9 +68,7 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <div className="container my-3 py-1 px-0">
-            <img src="img_welcome.jpg" className="img-responsive w-100" alt=""/>
-          </div>   
+          <Welcome/>
           <ListMovie/>
         </Route>
         <Route path="/login">

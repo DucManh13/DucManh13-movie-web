@@ -96,7 +96,7 @@
 }
 .card-img-top {
   width: 100%;
-  height: 450px;
+  height: 400px;
 }
 .card-img-top:hover {
   filter: brightness(90%);

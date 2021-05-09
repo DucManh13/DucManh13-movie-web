@@ -1,6 +1,7 @@
 import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 function ListMovie(props) {
   const [list,setList]=useState();
   
@@ -17,8 +18,8 @@ function ListMovie(props) {
 
   return (    
     <div className="container py-3 px-5 bg-light">
-      <h3>Available Movies</h3>
-      <hr/>
+      <h3 className="py-2">Available Movies</h3>
+      <hr className="mb-4"/>
       {list==null?null:(
       <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         {list.map((movie,index)=>

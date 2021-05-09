@@ -1,13 +1,14 @@
 import Seat from "./Seat";
-import {PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
+import Payment from "./Payment";
 
 function Booking(props) {
   const rows=[0,1,2,3,4,5,6,7,8,9]
   const cols=[1,2,3,4,5,6,7,8,9,10]
-  const price=50000;
+  const price=1;
   const [seats,setSeats]=useState(Array(101).fill(0));
   const [ticket,setTicket]=useState(0);
+  const [check,setCheck]=useState(false);
   const handleTicket=(seat)=>{
     var temp=seats.slice();
     temp[seat]=(temp[seat]===1)?0:1;
@@ -20,6 +21,7 @@ function Booking(props) {
     setTicket(0);
     setSeats(temp);
   }
+  
   return (
     <div className="container bg-light py-3 px-5">
       <h3>Booking</h3>
@@ -56,11 +58,26 @@ function Booking(props) {
               <h4 className="col-sm-5 offset-1">Total amount:</h4>
               <h4 className="col-sm-6">{ticket*price}</h4>
             </div>
-            <div className="row mt-4">
-              <div className="col-sm-5 offset-1">
-                <PayPalButtons createOrder={createOrder} onApprove={onApprove} style={{ color: "blue", shape: "rect", layout:"horizontal", label:"paypal",height: 47.3,tagline:false}} />
-             </div>
-              <div className="col-sm-5 offset-sm-0 offset-1"><button type="button" className="btn btn-lg btn-secondary w-100" onClick={handleReset}>Reset</button></div>
+            <div className="text-center mt-4">
+              <button type="button" className="btn btn-danger mr-2 btn-lg" data-toggle="modal" data-target="#modelId" disabled={!ticket} onClick={()=>setCheck(true)}>
+                Confirm
+              </button>
+              <div className="modal fade" id="modelId"  data-backdrop="static" data-keyboard="false">
+                <div className="modal-dialog" >
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title">Payment</h5>
+                        <button type="button" className="close" data-dismiss="modal" onClick={()=>setCheck(false)}>
+                          &times;
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                    {check?<Payment seats={seats} ticket={ticket} price={price}/>:null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" className="btn btn-lg btn-secondary" onClick={handleReset}>Reset</button>
             </div>    
           </div>              
         </div>
@@ -71,20 +88,3 @@ function Booking(props) {
 
 export default Booking;
 
-const createOrder= function(data, actions) {
-  // This function sets up the details of the transaction, including the amount and line item details.
-  return actions.order.create({
-    purchase_units: [{
-      amount: {
-        value: '0.01'
-      }
-    }]
-  });
-};
-const onApprove= function(data, actions) {
-  // This function captures the funds from the transaction.
-  return actions.order.capture().then(function(details) {console.log(details)
-    // This function shows a transaction success message to your buyer.
-    alert('Transaction completed by ' + details.payer.name.given_name);
-  });
-}
