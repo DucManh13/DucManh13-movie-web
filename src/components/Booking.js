@@ -1,14 +1,34 @@
+import { useState,useEffect } from "react";
+import axios from "axios";
 import Seat from "./Seat";
-import { useState } from "react";
 import Payment from "./Payment";
+import { useHistory, useLocation } from "react-router";
 
 function Booking(props) {
+  const state  = useLocation().state;
+  const history = useHistory();
+
   const rows=[0,1,2,3,4,5,6,7,8,9]
   const cols=[1,2,3,4,5,6,7,8,9,10]
-  const price=1;
+  const [price,setPrice]=useState();
   const [seats,setSeats]=useState(Array(101).fill(0));
   const [ticket,setTicket]=useState(0);
   const [check,setCheck]=useState(false);
+  
+  useEffect(()=>{    
+    let mounted=true;
+    if(state){
+      setPrice(state.price);
+      axios.get("https://fbooking-service.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+        .then(response => {
+          if (mounted) console.log(state.screeningId);
+        })
+        .catch(err => console.log(err));}
+    else history.push("/");
+
+    return ()=>{mounted=false;}
+  },[props.token,state,history]);
+
   const handleTicket=(seat)=>{
     var temp=seats.slice();
     temp[seat]=(temp[seat]===1)?0:1;

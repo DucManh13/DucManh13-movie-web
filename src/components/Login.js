@@ -59,7 +59,7 @@ function Login(props) {
             </Link> 
           </form>
           <div className="container mt-2 text-center">
-          <Link to="/signup" className="text-decoration-none">
+          <Link to="/forgotpass" className="text-decoration-none">
               <span className="text-danger s-6 ">Forgot your password?</span>
           </Link>  
           </div>

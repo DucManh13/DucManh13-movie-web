@@ -1,40 +1,84 @@
 import {PayPalButtons } from "@paypal/react-paypal-js";
 
 function Payment({seats,ticket,price}) {
-  const createOrder= (data, actions)=>{
-    return actions.order.create({
-      purchase_units: [{
-        description: "Stuff",
-        amount: {
-            value: ticket*price,
-            currency_code: "USD",
-            breakdown: {
-                item_total: {
-                    currency_code: "USD",
-                    value: ticket*price
-                },
-            }
-        },
-        items: seats.reduce((result,seat,index)=>{
-          if (seat===1)
-            result.push( {
-              unit_amount: {
-                  currency_code: "USD",
-                  value: price
-              },
-              quantity: "1",
-              name: `Seat ${index}`,
-            });
-          return result;
-        },[])
-      }]
+  
+  const createOrder= function() {
+    return fetch('https://fbooking-service.herokuapp.com/booking/prepare', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: 2,
+        currency: "USD",
+        tickets: [
+          {
+            seatNumber: "A4",
+            price: 15.0
+          },
+          {
+            seatNumber: "A5",
+            price: 15.0
+          },
+        ],
+      })
+    })
+    .then(function(res) {
+      // DEBUG
+      console.log("Set up order successfully.");
+      return res.json();
+    })
+    .then(function(data) {
+      // DEBUG
+      console.log('-- STEP 1 --');
+      console.log(data);
+      return data.orderId; // Same order ID key name as on the server
     });
-  };
-  const onApprove= function(data, actions) {
-    // This function captures the funds from the transaction.
-    return actions.order.capture().then(function(details) {console.log(details)
-      // This function shows a transaction success message to your buyer.
-      alert('Transaction completed by ' + details.payer.name.given_name);
+  }
+
+  const onApprove= function (data, actions) {
+    // DEBUG
+    console.log('-- STEP 2 --');
+    console.log(data);
+    // Capture the funds from the transaction
+    return fetch('https://fbooking-service.herokuapp.com/booking/confirm', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        orderId: data.orderID,
+        payerId: data.payerID,
+        userId: 5, // INSERT USER_ID HERE
+        amount: 20, // INSERT CHARGE HERE
+        currency: "USD",
+        tickets: [
+          {
+            // Use UUID to prevent violation of db constraints, for demo purposes only
+            seatNumber: "abc123", // INSERT SEAT_NUMBER HERE, e.g. "A4"
+            screeningId: 7 // INSERT SCREENING_ID HERE
+          },
+          {
+            seatNumber: "abc456",
+            screeningId: 7
+          },
+        ],
+      })
+    })
+    .then(function(res) {
+      // DEBUG
+      console.log("Finish transaction successfully.");
+      return res.json();
+    })
+    .then(function(details) {
+      // DEBUG
+      console.log('-- STEP 3 --');
+      console.log(details);
+      alert(
+          'Transaction approved by ' + details.orderId +
+          '\nBooking ID is ' + details.id
+      );
+      return details.id;
     });
   }
   return (

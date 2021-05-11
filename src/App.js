@@ -15,6 +15,7 @@ import Booking from './components/Booking';
 import EditProfile from './components/EditProfile';
 import Welcome from './components/Welcome';
 import ChangePassword from './components/ChangePassword';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')));
@@ -78,6 +79,9 @@ function App() {
         <Route path="/signup">
           {!token?<Signup/>:<Redirect to="/"/>}
         </Route>
+        <Route path="/forgotpass">
+          {!token?<ForgotPassword/>:<Redirect to="/"/>}
+        </Route>
         <Route path="/profile">
           {token?<Profile token={token}/>:<Redirect to="/"/>}
         </Route>
@@ -99,7 +103,7 @@ function App() {
         <Route path="/schedule/:movieId">
           <MovieSchedule/>
         </Route>
-        <Route path="/booking">
+        <Route exact path="/booking">
           {token?<Booking/>:<Redirect to="/login"/>}
         </Route>
         <Route path="*">

@@ -11,7 +11,7 @@ function ScreeningList(props) {
           else return 0;}
           ).map((screening,index)=>
           (<div key={index} className="col pb-3">
-            <Link to={`/booking/${screening.screening_id}`}>
+            <Link to={{ pathname: '/booking', state: { screeningId: screening.screening_id, price:screening.price} }}>
               <button className=" btn bg-white2 border w-100">
                 <div className="s-4">{screening.started_at.slice(0,5)}</div>
               </button>
