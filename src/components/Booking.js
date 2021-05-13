@@ -11,7 +11,7 @@ function Booking(props) {
   const rows=[0,1,2,3,4,5,6,7,8,9]
   const cols=[1,2,3,4,5,6,7,8,9,10]
   const [price,setPrice]=useState();
-  const [seats,setSeats]=useState(Array(101).fill(0));
+  const [seats,setSeats]=useState();
   const [ticket,setTicket]=useState(0);
   const [check,setCheck]=useState(false);
   
@@ -19,11 +19,24 @@ function Booking(props) {
     let mounted=true;
     if(state){
       setPrice(state.price);
-      axios.get("https://fbooking-service.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+      // axios.get("https://fbooking-service.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+      //   .then(response => {
+      //     if (mounted) {
+      //       console.log(state.screeningId);
+      //       var temp=Array(101).fill(0);
+      //       response.data.forEach(element=>{temp[element.seatNumber]=1});
+      //       setSeats(temp);
+      //       }
+      //   })
+      //   .catch(err => console.log(err));}
+      axios.get("https://fbk-api-gateway.herokuapp.com/get", { headers: {"Authorization" : `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MjA5ODI0MzB9.8iULax4h163ubFhkRqc4wGMu0VV8mMe20i7HN9GfNOY`} }) 
         .then(response => {
-          if (mounted) console.log(state.screeningId);
+          if (mounted) {
+            console.log(state.screeningId);
+            }
         })
         .catch(err => console.log(err));}
+        
     else history.push("/");
 
     return ()=>{mounted=false;}
@@ -52,7 +65,7 @@ function Booking(props) {
             <div className="container bg-dark text-light mb-4">
               Screen
             </div>
-            {rows.map((row,r_index)=>
+            {!seats?null:rows.map((row,r_index)=>
               (<div className="row mb-1" key={r_index}>
                 <div className="offset-sm-1"></div>
                 {cols.map((col,c_index)=>
