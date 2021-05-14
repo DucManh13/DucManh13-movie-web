@@ -59,13 +59,13 @@ function Booking(props) {
     <div className="container bg-light py-3 px-5">
       <h3>Booking</h3>
       <hr/>
-      <div className="row py-4">
+      {!seats?null:<div className="row py-4">
         <div className="col-lg-5 col-10 offset-1">
           <div className="container border border-danger border-2 py-2 bg-silver text-center">
             <div className="container bg-dark text-light mb-4">
               Screen
             </div>
-            {!seats?null:rows.map((row,r_index)=>
+            {rows.map((row,r_index)=>
               (<div className="row mb-1" key={r_index}>
                 <div className="offset-sm-1"></div>
                 {cols.map((col,c_index)=>
@@ -114,7 +114,7 @@ function Booking(props) {
             </div>    
           </div>              
         </div>
-      </div>     
+      </div>} 
     </div>        
   );
 }
