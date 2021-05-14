@@ -3,10 +3,11 @@ import {PayPalButtons } from "@paypal/react-paypal-js";
 function Payment({seats,ticket,price}) {
   
   const createOrder= function() {
-    return fetch('https://fbooking-service.herokuapp.com/booking/prepare', {
+    return fetch('https://fbk-api-gateway.herokuapp.com/bookings/prepare', {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        "Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`
       },
       body: JSON.stringify({
         userId: 2,
@@ -41,10 +42,11 @@ function Payment({seats,ticket,price}) {
     console.log('-- STEP 2 --');
     console.log(data);
     // Capture the funds from the transaction
-    return fetch('https://fbooking-service.herokuapp.com/booking/confirm', {
+    return fetch('https://fbk-api-gateway.herokuapp.com/bookings/confirm', {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        "Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`
       },
       body: JSON.stringify({
         orderId: data.orderID,

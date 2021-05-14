@@ -29,10 +29,13 @@ function Booking(props) {
       //       }
       //   })
       //   .catch(err => console.log(err));}
-      axios.get("https://fbk-api-gateway.herokuapp.com/tickets", { headers: {"Authorization" : `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`} }) 
+      axios.get("https://fbk-api-gateway.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`} }) 
         .then(response => {
           if (mounted) {
-            console.log(state.screeningId);
+            console.log(response.data.data);
+            var temp=Array(101).fill(0);
+            response.data.data.forEach(element=>{temp[element.seatNumber]=1});
+            setSeats(temp);
             }
         })
         .catch(err => console.log(err));}
