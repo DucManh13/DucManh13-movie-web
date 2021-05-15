@@ -1,7 +1,9 @@
 import {PayPalButtons } from "@paypal/react-paypal-js";
+import { useHistory } from "react-router";
 
-function Payment({seats,ticket,price}) {
-  
+function Payment({seats,ticket,price,user,screeningId,onFinish}) {
+  const history = useHistory();
+
   const createOrder= function() {
     return fetch('https://fbk-api-gateway.herokuapp.com/bookings/prepare', {
       method: 'post',
@@ -10,18 +12,16 @@ function Payment({seats,ticket,price}) {
         "Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`
       },
       body: JSON.stringify({
-        userId: 2,
+        userId: user.id,
         currency: "USD",
-        tickets: [
-          {
-            seatNumber: "A4",
-            price: 15.0
-          },
-          {
-            seatNumber: "A5",
-            price: 15.0
-          },
-        ],
+        tickets: seats.reduce((result,seat,index)=>{
+          if (seat===1)
+            result.push({
+              seatNumber: `${index}`,
+              price: price
+            });
+          return result;
+        },[])
       })
     })
     .then(function(res) {
@@ -51,35 +51,41 @@ function Payment({seats,ticket,price}) {
       body: JSON.stringify({
         orderId: data.orderID,
         payerId: data.payerID,
-        userId: 5, // INSERT USER_ID HERE
-        amount: 20, // INSERT CHARGE HERE
+        userId: user.id, // INSERT USER_ID HERE
+        amount: price*ticket, // INSERT CHARGE HERE
         currency: "USD",
-        tickets: [
-          {
-            // Use UUID to prevent violation of db constraints, for demo purposes only
-            seatNumber: "abc123", // INSERT SEAT_NUMBER HERE, e.g. "A4"
-            screeningId: 7 // INSERT SCREENING_ID HERE
-          },
-          {
-            seatNumber: "abc456",
-            screeningId: 7
-          },
-        ],
+        tickets: seats.reduce((result,seat,index)=>{
+          if (seat===1)
+            result.push({
+              seatNumber: `${index}`,
+              screeningId: screeningId
+            });
+            return result;
+          },[])
       })
     })
     .then(function(res) {
       // DEBUG
-      console.log("Finish transaction successfully.");
+      console.log("Finish.");
       return res.json();
     })
     .then(function(details) {
       // DEBUG
       console.log('-- STEP 3 --');
       console.log(details);
-      alert(
-          'Transaction approved by ' + details.orderId +
-          '\nBooking ID is ' + details.id
-      );
+      if(details.status&&details.status===500) {
+        alert(
+          "Some seats you selected were booked. Pleasse try again."
+        );
+        window.location.reload();
+      }
+      else {
+        alert(
+          "Finish transaction successfully. Check your email for QR code of this booking."
+        );
+        onFinish();
+        history.push("/bookinglist");
+      }
       return details.id;
     });
   }

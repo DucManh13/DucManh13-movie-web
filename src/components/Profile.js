@@ -19,11 +19,14 @@ function Profile(props) {
     <div className="container py-3 px-5 bg-light">
       <div className="d-flex">
         <h2 className="mr-auto">User Profile</h2>
+        <Link to="/bookinglist">
+          <button type="button" className="btn btn-lg mr-2 btn-info "><i className="fas fa-ticket-alt mr-2"></i>Booking List</button>
+        </Link>
         <Link to="/editprofile">
           <button type="button" className="btn btn-lg mr-2 btn-warning "><i className="fas fa-edit mr-2"></i>Edit Profile</button>
         </Link>
         <Link to="/changepass">
-          <button type="button" className="btn btn-lg btn-info ">Change Password</button>
+          <button type="button" className="btn btn-lg btn-secondary ">Change Password</button>
         </Link>
       </div>
       <hr/>
