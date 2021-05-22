@@ -7,7 +7,7 @@ function ListMovie(props) {
   
   useEffect(()=>{
     let mounted=true;
-    axios.get("https://fbk-api-gateway.herokuapp.com/movie/") 
+    axios.get("https://fbk-api-gateway.herokuapp.com/movie") 
       .then(response => {
         if (mounted) setList(response.data.data);
       })

@@ -9,7 +9,7 @@ function Movie(props) {
   let { movieId } = useParams();
 
   useEffect(()=>{
-    axios.get('https://fbk-api-gateway.herokuapp.com/movie/?id='+movieId) 
+    axios.get('https://fbk-api-gateway.herokuapp.com/movie?id='+movieId) 
         .then(response => {
           setData(response.data.data[0]);
         })

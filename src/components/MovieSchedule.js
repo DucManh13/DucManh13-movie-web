@@ -13,7 +13,7 @@ function Schedule(props) {
 
   useEffect(()=>{
     let mounted=true;
-    axios.get("https://fbk-api-gateway.herokuapp.com/date/") 
+    axios.get("https://fbk-api-gateway.herokuapp.com/date") 
       .then(response => {
         if (mounted) {
           setDates(response.data.data);
@@ -28,7 +28,7 @@ function Schedule(props) {
   useEffect(()=>{
     let mounted=true;
     if(activeDay){
-      axios.get("https://fbk-api-gateway.herokuapp.com/screening/by-date/?date_id="+activeDay) 
+      axios.get("https://fbk-api-gateway.herokuapp.com/screening/by-date?date_id="+activeDay) 
       .then(response => {
         if (mounted) 
           setSchedule({

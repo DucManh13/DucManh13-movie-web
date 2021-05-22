@@ -75,7 +75,7 @@ function Payment({seats,ticket,price,user,screeningId,onFinish}) {
       console.log(details);
       if(details.status&&details.status===500) {
         alert(
-          "Some seats you selected were booked. Pleasse try again."
+          "Some seats you selected were booked. Please try again."
         );
         window.location.reload();
       }
