@@ -1,4 +1,3 @@
-import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SeatMap from './SeatMap';

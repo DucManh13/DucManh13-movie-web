@@ -1,7 +1,7 @@
 import {PayPalButtons } from "@paypal/react-paypal-js";
 import { useHistory } from "react-router";
 
-function Payment({seats,ticket,price,user,screeningId,onFinish}) {
+function Payment({seats,ticket,price,user,movieId,screeningId,token,onFinish}) {
   const history = useHistory();
 
   const createOrder= function() {
@@ -9,7 +9,7 @@ function Payment({seats,ticket,price,user,screeningId,onFinish}) {
       method: 'post',
       headers: {
         'content-type': 'application/json',
-        "Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`
+        'Authorization' : `Bearer ${token}`
       },
       body: JSON.stringify({
         userId: user.id,
@@ -46,13 +46,15 @@ function Payment({seats,ticket,price,user,screeningId,onFinish}) {
       method: 'post',
       headers: {
         'content-type': 'application/json',
-        "Authorization" : `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`
+        'Authorization' : `Bearer ${token}`
       },
       body: JSON.stringify({
         orderId: data.orderID,
         payerId: data.payerID,
-        userId: user.id, // INSERT USER_ID HERE
-        amount: price*ticket, // INSERT CHARGE HERE
+        userId: user.id,
+        userEmail: user.email,
+        movieId: movieId,
+        amount: price*ticket,
         currency: "USD",
         tickets: seats.reduce((result,seat,index)=>{
           if (seat===1)

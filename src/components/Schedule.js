@@ -8,6 +8,7 @@ function Schedule(props) {
   const [dates,setDates]=useState();
   const [activeDay,setActiveDay]=useState();
   const [today,setToday]=useState();
+
   useEffect(()=>{
     let mounted=true;
     axios.get("https://fbk-api-gateway.herokuapp.com/date") 
@@ -27,7 +28,6 @@ function Schedule(props) {
   
   useEffect(()=>{
     let mounted=true;
-    setSchedule();
     if(activeDay){     
       axios.get("https://fbk-api-gateway.herokuapp.com/screening/by-date?date_id="+activeDay) 
       .then(response => {
@@ -39,11 +39,18 @@ function Schedule(props) {
     return ()=>{mounted=false;}
   },[activeDay]);
   
+  const changeDay=(dateId)=>{
+    if(dateId!==activeDay) {
+      setSchedule();
+      setActiveDay(dateId);
+    }
+  }
+  
   return (
     <div className="container py-3 px-5 bg-light h-100">
       <h3>Movie Schedule</h3>
       {!(dates&&activeDay)?null:
-        <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={(dateId)=>setActiveDay(dateId)}/>}
+        <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
       {!schedule?null:schedule.movie.length===0?"No movie scheduled for this day yet":
         schedule.movie.map((item,index)=>
@@ -55,7 +62,7 @@ function Schedule(props) {
             </div>  
             <div className="col-sm-9">
               <h4>{item.data[0].movie_name}</h4>
-              <ScreeningList screenings={schedule.screening[index]} isToday={today===activeDay}/>
+              <ScreeningList screenings={schedule.screening[index]} isToday={today===activeDay} movieId={item.data[0].movie_id}/>
             </div>  
           </div>))}
     </div>          

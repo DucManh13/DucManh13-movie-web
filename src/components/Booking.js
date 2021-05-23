@@ -102,7 +102,8 @@ function Booking(props) {
               <button type="button" className="btn btn-lg btn-secondary" onClick={handleReset}>Reset</button>
             </div>:
             <div className="text-center mt-4 mx-4">
-              <Payment seats={seats} ticket={ticket} price={price} user={user} screeningId={state.screeningId} onFinish={()=>setCheck(false)}/>
+              <Payment seats={seats} ticket={ticket} price={price} user={user} movieId={state.movieId} 
+                screeningId={state.screeningId} token={props.token} onFinish={()=>setCheck(false)}/>
               <button type="button" className="btn btn-lg btn-secondary" onClick={()=>setCheck(false)}>Cancel</button>
             </div>}
           </div>              
