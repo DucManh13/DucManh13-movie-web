@@ -9,12 +9,14 @@ function Movie(props) {
   let { movieId } = useParams();
 
   useEffect(()=>{
+    let mounted=true;
     axios.get('https://fbk-api-gateway.herokuapp.com/movie?id='+movieId) 
         .then(response => {
-          setData(response.data.data[0]);
+          if (mounted) setData(response.data.data[0]);
         })
     .catch(err => console.log(err));
     
+    return ()=>{mounted=false;}
   },[movieId]);
 
   return (

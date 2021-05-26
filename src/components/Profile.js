@@ -37,39 +37,39 @@ function Profile(props) {
               <h4>Username:</h4>
             </div>
             <div className="col-lg-10 col-md-9 col-sm-8">
-              <h4>{info.username}</h4>
+              <h4 className="font-weight-normal">{info.username}</h4>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-2">
             <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Name:</h4>
             </div>
             <div className="col-lg-10 col-md-9 col-sm-8">
-              <h4>{info.userDto.name}</h4>
+              <h4 className="font-weight-normal">{info.userDto.name}</h4>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-2">
             <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Age:</h4>
             </div>
             <div className="col-lg-10 col-md-9 col-sm-8">
-              <h4>{info.userDto.age}</h4>
+              <h4 className="font-weight-normal">{info.userDto.age}</h4>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-2">
             <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Email:</h4>
             </div>
             <div className="col-lg-10 col-md-9 col-sm-8 s-3">
-              <h4>{info.userDto.email}</h4>
+              <h4 className="font-weight-normal">{info.userDto.email}</h4>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-2">
             <div className="col-lg-2 col-md-3 col-sm-4">
               <h4>Address:</h4>
             </div>
             <div className="col-lg-10 col-md-9 col-sm-8">
-              <h4>{info.userDto.address}</h4>
+              <h4 className="font-weight-normal">{info.userDto.address}</h4>
             </div>
           </div>  
         </div>     

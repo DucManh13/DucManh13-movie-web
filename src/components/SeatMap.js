@@ -5,7 +5,7 @@ function SeatMap({seats,check,handleTicket}) {
   const cols=[1,2,3,4,5,6,7,8,9,10];
   
   return (
-    <div className="container border border-danger border-2 py-2 bg-silver text-center">
+    <div className="container border border-danger border-2 py-2 bg-silver text-center h-100">
       <div className="container bg-dark text-light mb-4">
         Screen
       </div>
@@ -14,7 +14,7 @@ function SeatMap({seats,check,handleTicket}) {
           <div className="offset-sm-1"></div>
           {cols.map((col,c_index)=>
             (<div className="col p-0" key={c_index}>
-                <Seat number={row*10+col} status={1} check={true} onReceiveClick={handleTicket}/>
+                <Seat number={row*10+col} status={seats[row*10+col]} check={check} onReceiveClick={handleTicket}/>
             </div>))}
             <div className="offset-sm-1"></div>
         </div>))}

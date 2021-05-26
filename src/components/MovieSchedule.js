@@ -5,9 +5,10 @@ import { useParams } from 'react-router-dom';
 import DateList from "./DateList";
 import ScreeningList from './ScreeningList';
 
-function Schedule(props) {
+function MovieSchedule(props) {
   const [dates,setDates]=useState();
   const [activeDay,setActiveDay]=useState();
+  const [today,setToday]=useState();
   const [schedule,setSchedule]=useState();
   let { movieId } = useParams();
 
@@ -18,6 +19,7 @@ function Schedule(props) {
         if (mounted) {
           setDates(response.data.data);
           setActiveDay(response.data.data[0].date_id);
+          setToday(response.data.data[0].date_id);
         }  
       })
       .catch(err => console.log(err));
@@ -40,11 +42,18 @@ function Schedule(props) {
     return ()=>{mounted=false;}
   },[activeDay, movieId]);
 
+  const changeDay=(dateId)=>{
+    if(dateId!==activeDay) {
+      setSchedule();
+      setActiveDay(dateId);
+    }
+  }
+
   return (
     <div className="container py-3 px-5 bg-light">
       <h3>Movie Schedule</h3>
       {!(dates&&activeDay)?null:
-        <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={(dateId)=>setActiveDay(dateId)}/>}
+        <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
       {!schedule?null:schedule.movie.length===0?"No screening of this movie scheduled for this day yet":
         <div className="row my-4">
@@ -55,12 +64,12 @@ function Schedule(props) {
           </div>  
           <div className="col-sm-9">
               <h4>{schedule.movie[0].data[0].movie_name}</h4>
-              <ScreeningList screenings={schedule.screening[0]}/>
+              <ScreeningList screenings={schedule.screening[0]} isToday={today===activeDay} movieId={schedule.movie[0].data[0].movie_id}/>
           </div>  
         </div>}
     </div>          
   );
 }
   
-export default Schedule;
+export default MovieSchedule;
   
