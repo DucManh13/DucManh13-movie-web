@@ -43,8 +43,13 @@ function Signup(props) {
       let info = {
         actions: [
           {
-            actname: "READ",
-            id: 2
+            "id": 15
+          },
+          {
+            "id": 16
+          },
+          {
+            "id": 17
           }
         ],
         password : state.password,

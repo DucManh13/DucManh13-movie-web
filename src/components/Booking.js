@@ -18,7 +18,7 @@ function Booking(props) {
     let mounted=true;
     if(state){
       setPrice(state.price);
-      axios.get("https://fbk-api-gateway.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlcyI6IlJPTEVfQURNSU4iLCJpZCI6MzksInBlcm1pc3Npb24iOnsiMSI6IkNSRUFURSIsIjIiOiJSRUFEIiwiMyI6IlVQREFURSIsIjQiOiJERUxFVEUifSwiaWF0IjoxNjIwNjI2MDMwLCJleHAiOjE2MzA5ODI0MzB9.vR0EDk9LSjFkwcNvEOSndZJ8cnJOyHS7gBSmxU9TbYI`} }) 
+      axios.get("https://fbk-api-gateway.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
         .then(response => {
           if (mounted) {
             console.log(response.data.data);
