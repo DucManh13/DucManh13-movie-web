@@ -52,19 +52,20 @@ function Schedule(props) {
       {!(dates&&activeDay)?null:
         <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
-      {!schedule?null:schedule.movie.length===0?"No movie scheduled for this day yet":
-        schedule.movie.map((item,index)=>
-          (<div className="row my-4" key={index}>
-            <div className="col-sm-3">
-              <Link to={`/movie/${item.data[0].movie_id}`}>
-                <img className="img-responsive w-100" src={item.data[0].poster} alt="Movie Poster"/>
-              </Link>                  
-            </div>  
-            <div className="col-sm-9">
-              <h4>{item.data[0].movie_name}</h4>
-              <ScreeningList screenings={schedule.screening[index]} isToday={today===activeDay} movieId={item.data[0].movie_id}/>
-            </div>  
-          </div>))}
+      {!schedule?<div className="text-center"><div className="spinner-border"/></div>:
+        schedule.movie.length===0?"No movie scheduled for this day yet":
+          schedule.movie.map((item,index)=>
+            (<div className="row my-4" key={index}>
+              <div className="col-sm-3">
+                <Link to={`/movie/${item.data[0].movie_id}`}>
+                  <img className="img-responsive w-100" src={item.data[0].poster} alt="Movie Poster"/>
+                </Link>                  
+              </div>  
+              <div className="col-sm-9">
+                <h4>{item.data[0].movie_name}</h4>
+                <ScreeningList screenings={schedule.screening[index]} isToday={today===activeDay} movieId={item.data[0].movie_id}/>
+              </div>  
+            </div>))}
     </div>          
   );
 }

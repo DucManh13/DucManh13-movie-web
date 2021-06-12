@@ -23,7 +23,7 @@ function BookingInfo(props) {
   },[props.movieId,props.screeningId]);
 
   return !(movie&&screening)?null:(
-    <div>
+    <>
       <hr className="row my-0"/>
       <div className="row mt-2">
         <h4 className="col-sm-5 font-orelega">Movie:</h4>
@@ -45,7 +45,7 @@ function BookingInfo(props) {
         <h4 className="col-sm-5 font-orelega">Duration:</h4>
         <h4 className="col-sm-7 font-weight-normal">{movie.duration} minutes</h4>
       </div>  
-    </div>
+    </>
   );
 }
 

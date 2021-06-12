@@ -65,7 +65,8 @@ function ChangePassword(props) {
     <div className="container py-3 px-5 bg-light ">
       <h2>Change Password</h2>
       <hr/>
-      {!state?null:(<form onSubmit={handleSubmit}>            
+      {!state?<div className="text-center"><div className="spinner-border"/></div>:
+      (<form onSubmit={handleSubmit}>            
         <div className="form-group row pt-2">
           <label htmlFor="" className="col-sm-3 offset-sm-1 mt-1"><h5>Old Password:</h5></label>
           <input type="password"

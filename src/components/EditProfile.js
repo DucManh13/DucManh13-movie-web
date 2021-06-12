@@ -72,7 +72,8 @@ function EditProfile(props) {
     <div className="container py-3 px-5 bg-light ">
       <h2>Edit Profile</h2>
       <hr/>
-      {!state?null:(<form onSubmit={handleSubmit}>            
+      {!state?<div className="text-center"><div className="spinner-border"/></div>:
+      (<form onSubmit={handleSubmit}>            
         <div className="form-group row">
           <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-user text-danger"></i></label>
           <input type="text"

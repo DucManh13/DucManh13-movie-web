@@ -30,7 +30,7 @@ function Profile(props) {
         </Link>
       </div>
       <hr/>
-      {!info?null:(
+      {!info?<div className="text-center"><div className="spinner-border"/></div>:(
         <div className="container">
           <div className="row">
             <div className="col-lg-2 col-md-3 col-sm-4">

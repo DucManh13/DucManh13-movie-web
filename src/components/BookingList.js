@@ -21,7 +21,7 @@ function BookingList(props) {
   useEffect(()=>{
     let mounted=true;
     if(id){
-      axios.get('https://fbk-api-gateway.herokuapp.com/bookings?user_id='+id, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+      axios.get('https://fbk-api-gateway.herokuapp.com/bookings/mine?user_id='+id, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
           .then(response => {
             if (mounted) {
               setList(response.data.data.reverse());console.log(response.data.data);
@@ -43,28 +43,29 @@ function BookingList(props) {
     <div className="container py-3 px-5 bg-light">
       <h2>Booking List</h2>
       <hr/>
-      {!(list&&page)?null:list.slice(page.current*5,(page.current+1)*5).map((booking,index)=>(
-      <div className="container py-4 px-5 mb-3 bg-dark" key={index}>
-        <div className="row">    
-          <div className="col-md-6 bg-silver border border-danger border-2">
-            <h4 className="mt-2 font-orelega">Booking ID:</h4>
-            <h5 className="font-weight-normal">{booking.code}</h5>
-            <hr className="row my-0"/>
-            <div className="row mt-2">
-              <h4 className="col-sm-5 font-orelega">Total:</h4>
-              <h4 className="col-sm-6 font-weight-normal">{booking.amount} USD</h4>
+      {!(list&&page)?<div className="text-center"><div className="spinner-border"/></div>:
+        list.slice(page.current*5,(page.current+1)*5).map((booking,index)=>(
+        <div className="container py-4 px-5 mb-3 bg-dark" key={index}>
+          <div className="row">    
+            <div className="col-md-6 bg-silver border border-danger border-2">
+              <h4 className="mt-2 font-orelega">Booking ID:</h4>
+              <h5 className="font-weight-normal">{booking.code}</h5>
+              <hr className="row my-0"/>
+              <div className="row mt-2">
+                <h4 className="col-sm-5 font-orelega">Total:</h4>
+                <h4 className="col-sm-6 font-weight-normal">{booking.amount} USD</h4>
+              </div>
+              <div className="row mt-2">
+                <h4 className="col-sm-5 font-orelega">Seat count:</h4>
+                <h4 className="col-sm-6 font-weight-normal">{booking.tickets.length} seat(s)</h4>
+              </div>
+              <BookingInfo movieId={booking.movieId} screeningId={booking.tickets[0].screeningId}/>
             </div>
-            <div className="row mt-2">
-              <h4 className="col-sm-5 font-orelega">Seat count:</h4>
-              <h4 className="col-sm-6 font-weight-normal">{booking.tickets.length} seat(s)</h4>
+            <div className="col-md-6 px-0">
+              <SeatMap seats={createSeats(booking.tickets)} check={true}/>
             </div>
-            <BookingInfo movieId={booking.movieId} screeningId={booking.tickets[0].screeningId}/>
           </div>
-          <div className="col-md-6 px-0">
-            <SeatMap seats={createSeats(booking.tickets)} check={true}/>
-          </div>
-        </div>
-      </div>))}
+        </div>))}
       {!(list&&page)?null:
         <div className="text-center">
           <button className="btn btn-lg btn-danger mx-1" disabled={page.current===0}

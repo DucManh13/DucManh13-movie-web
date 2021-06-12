@@ -101,7 +101,7 @@ function App() {
         <Route exact path="/schedule">
           <Schedule/>
         </Route>
-        <Route path="/schedule/:movieId">
+        <Route exact path="/schedule/:movieId">
           <MovieSchedule/>
         </Route>
         <Route exact path="/booking">

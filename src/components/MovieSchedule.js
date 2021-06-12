@@ -55,7 +55,8 @@ function MovieSchedule(props) {
       {!(dates&&activeDay)?null:
         <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
-      {!schedule?null:schedule.movie.length===0?"No screening of this movie scheduled for this day yet":
+      {!schedule?<div className="text-center"><div className="spinner-border"/></div>:
+        schedule.movie.length===0?"No screening of this movie scheduled for this day yet":
         <div className="row my-4">
           <div className="col-sm-3">
             <Link to={`/movie/${schedule.movie[0].data[0].movie_id}`}>
