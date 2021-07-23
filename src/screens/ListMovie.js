@@ -28,9 +28,9 @@ function ListMovie(props) {
               <Link to={`/movie/${movie.movie_id}`}>
                 <img className="card-img-top" src={movie.poster} alt="Movie Poster"/>
               </Link>    
-              <div className="card-body bg-silver">
+              <div className="card-body card-movie bg-silver d-flex flex-column">
                 <h4 className="card-title">{movie.movie_name}</h4>
-                <div className="card-text">
+                <div className="card-text mb-auto overflow-auto">
                   <h5>Genre: <small>{movie.genre_name.join(", ")}</small></h5>
                   <h5>Release date: <small>{movie.release_date}</small></h5>
                   <h5>Duration: <small>{movie.duration} minutes</small></h5>

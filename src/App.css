@@ -104,7 +104,9 @@
 .card:hover {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
 }
-
+.card-movie {
+  height: 248px;
+}
 .bg-white2:hover {
   background-color: rgb(233, 232, 231);
   box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.3);
@@ -115,4 +117,7 @@
 }
 .bg-seat:not(.nohover):hover {
   background-color: lightgray;
+}
+.seat-text {
+  font-family: monospace;
 }

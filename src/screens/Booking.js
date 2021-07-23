@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-import Payment from "./Payment";
-import SeatMap from './SeatMap';
+import Payment from "../components/Payment";
+import SeatMap from '../components/SeatMap';
 import { useHistory, useLocation } from "react-router";
 
 function Booking(props) {

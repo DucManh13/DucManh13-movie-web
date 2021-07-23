@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import BookingInfo from "./BookingInfo";
-import SeatMap from './SeatMap';
+import BookingInfo from "../components/BookingInfo";
+import SeatMap from '../components/SeatMap';
 
 function BookingList(props) {
   const [list,setList]=useState();

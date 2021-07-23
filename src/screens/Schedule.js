@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import  { Link } from 'react-router-dom';
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-import DateList from "./DateList";
-import ScreeningList from './ScreeningList';
+import DateList from "../components/DateList";
+import ScreeningList from '../components/ScreeningList';
 
-function MovieSchedule(props) {
+function Schedule(props) {
   const [dates,setDates]=useState();
   const [activeDay,setActiveDay]=useState();
   const [today,setToday]=useState();
-  const [schedule,setSchedule]=useState();
-  let { movieId } = useParams();
 
   useEffect(()=>{
     let mounted=true;
@@ -26,51 +23,52 @@ function MovieSchedule(props) {
     
     return ()=>{mounted=false;}
   },[]);
-
+  
+  const [schedule,setSchedule]=useState();
+  
   useEffect(()=>{
     let mounted=true;
-    if(activeDay){
+    if(activeDay){     
       axios.get("https://fbk-api-gateway.herokuapp.com/screening/by-date?date_id="+activeDay) 
       .then(response => {
         if (mounted) 
-          setSchedule({
-            movie:response.data.movie.filter((item)=>(item.data[0].movie_id===+movieId)),
-            screening:response.data.screening.filter((item)=>(item[0].movie_id===+movieId))})
+          setSchedule(response.data);
       })
     .catch(err => console.log(err));
     }
     return ()=>{mounted=false;}
-  },[activeDay, movieId]);
-
+  },[activeDay]);
+  
   const changeDay=(dateId)=>{
     if(dateId!==activeDay) {
       setSchedule();
       setActiveDay(dateId);
     }
   }
-
+  
   return (
-    <div className="container py-3 px-5 bg-light">
+    <div className="container py-3 px-5 bg-light h-100">
       <h3>Movie Schedule</h3>
       {!(dates&&activeDay)?null:
         <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
       {!schedule?<div className="text-center"><div className="spinner-border"/></div>:
-        schedule.movie.length===0?"No screening of this movie scheduled for this day yet":
-        <div className="row my-4">
-          <div className="col-sm-3">
-            <Link to={`/movie/${schedule.movie[0].data[0].movie_id}`}>
-              <img className="img-responsive w-100" src={schedule.movie[0].data[0].poster} alt="Movie Poster"/>
-            </Link>                  
-          </div>  
-          <div className="col-sm-9">
-              <h4>{schedule.movie[0].data[0].movie_name}</h4>
-              <ScreeningList screenings={schedule.screening[0]} isToday={today===activeDay} movieId={schedule.movie[0].data[0].movie_id}/>
-          </div>  
-        </div>}
+        schedule.movie.length===0?"No movie scheduled for this day yet":
+          schedule.movie.map((item,index)=>
+            (<div className="row my-4" key={index}>
+              <div className="col-sm-3">
+                <Link to={`/movie/${item.data[0].movie_id}`}>
+                  <img className="img-responsive w-100" src={item.data[0].poster} alt="Movie Poster"/>
+                </Link>                  
+              </div>  
+              <div className="col-sm-9">
+                <h4>{item.data[0].movie_name}</h4>
+                <ScreeningList screenings={schedule.screening[index]} isToday={today===activeDay} movieId={item.data[0].movie_id}/>
+              </div>  
+            </div>))}
     </div>          
   );
 }
   
-export default MovieSchedule;
+export default Schedule;
   
