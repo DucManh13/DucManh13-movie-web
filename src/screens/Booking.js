@@ -18,7 +18,7 @@ function Booking(props) {
     let mounted=true;
     if(state){
       setPrice(state.price);
-      axios.get("https://fbk-api-gateway.herokuapp.com/tickets/mine?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
+      axios.get("https://fbk-api-gateway.herokuapp.com/tickets?screening_id="+state.screeningId, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
         .then(response => {
           if (mounted) {
             console.log(response.data.data);
