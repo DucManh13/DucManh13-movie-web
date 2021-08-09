@@ -1,15 +1,21 @@
 import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Pagination from '../components/Pagination';
+import Spinner from '../components/Spinner';
 
-function ListMovie(props) {
+function ListMovie({offset}) {
   const [list,setList]=useState();
-  
+  const [page,setPage]=useState();
+
   useEffect(()=>{
     let mounted=true;
     axios.get("https://fbk-api-gateway.herokuapp.com/movie") 
       .then(response => {
-        if (mounted) setList(response.data.data);
+        if (mounted) {
+          setList(response.data.data);
+          setPage({max:Math.floor(response.data.data.length/12),current:0});
+        }
       })
       .catch(err => console.log(err));
       
@@ -20,9 +26,9 @@ function ListMovie(props) {
     <div className="container py-3 px-5 bg-light">
       <h3 className="py-2">Available Movies</h3>
       <hr className="mb-4"/>
-      {!list?<div className="text-center"><div className="spinner-border"/></div>:(
+      {!(list&&page)?<Spinner />:(
       <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1">
-        {list.map((movie,index)=>
+        {list.slice(page.current*12,(page.current+1)*12).map((movie,index)=>
           (<div key={index} className="col pb-5 px-4">
             <div className="card ">
               <Link to={`/movie/${movie.movie_id}`}>
@@ -41,7 +47,9 @@ function ListMovie(props) {
               </div>
             </div>    
           </div>))}
-      </div>)}  
+      </div>)}
+      {!(list&&page)?null:
+        <Pagination page={page} setPage={setPage} offset={offset??0}/>}
     </div>        
   );
 }

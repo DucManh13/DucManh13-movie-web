@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BookingInfo from "../components/BookingInfo";
+import Pagination from "../components/Pagination";
 import SeatMap from '../components/SeatMap';
+import Spinner from '../components/Spinner';
 
 function BookingList(props) {
   const [list,setList]=useState();
@@ -43,7 +45,7 @@ function BookingList(props) {
     <div className="container py-3 px-5 bg-light">
       <h2>Booking List</h2>
       <hr/>
-      {!(list&&page)?<div className="text-center"><div className="spinner-border"/></div>:
+      {!(list&&page)?<Spinner />:
         list.slice(page.current*5,(page.current+1)*5).map((booking,index)=>(
         <div className="container py-4 px-5 mb-3 bg-dark" key={index}>
           <div className="row">    
@@ -67,24 +69,7 @@ function BookingList(props) {
           </div>
         </div>))}
       {!(list&&page)?null:
-        <div className="text-center">
-          <button className="btn btn-lg btn-danger mx-1" disabled={page.current===0}
-            onClick={()=>{setPage({...page,current:0});window.scrollTo(0, 0);}}>
-            <i className="fas fa-lg fa-angle-double-left"></i>
-          </button>
-          <button className="btn btn-lg btn-dark mx-1" disabled={page.current===0}
-            onClick={()=>{setPage({...page,current:page.current>0?page.current-1:0});window.scrollTo(0, 0);}}>
-            <i className="fas fa-lg fa-angle-left"></i>
-          </button>
-          <button className="btn btn-lg btn-dark mx-1" disabled={page.current===page.max} 
-            onClick={()=>{setPage({...page,current:page.current<page.max?page.current+1:page.max});window.scrollTo(0, 0);}}>
-            <i className="fas fa-lg fa-angle-right"></i>
-          </button>
-          <button className="btn btn-lg btn-danger mx-1" disabled={page.current===page.max} 
-            onClick={()=>{setPage({...page,current:page.max});window.scrollTo(0, 0);}}>
-            <i className="fas fa-lg fa-angle-double-right"></i>
-          </button>
-        </div>}
+        <Pagination page={page} setPage={setPage} offset={0}/>}
     </div>
   );
 }

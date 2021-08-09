@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Spinner from '../components/Spinner';
 
 function ChangePassword(props) {
   const [state,setState]=useState();
@@ -65,7 +66,7 @@ function ChangePassword(props) {
     <div className="container py-3 px-5 bg-light ">
       <h2>Change Password</h2>
       <hr/>
-      {!state?<div className="text-center"><div className="spinner-border"/></div>:
+      {!state?<Spinner />:
       (<form onSubmit={handleSubmit}>            
         <div className="form-group row pt-2">
           <label htmlFor="" className="col-sm-3 offset-sm-1 mt-1"><h5>Old Password:</h5></label>

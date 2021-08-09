@@ -72,7 +72,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Welcome/>
-            <ListMovie/>
+            <ListMovie offset={480} />
           </Route>
           <Route path="/login">
             {!token?<Login onReceiveToken={handleToken}/>:<Redirect to="/"/>}

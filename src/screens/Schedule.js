@@ -3,6 +3,7 @@ import  { Link } from 'react-router-dom';
 import axios from "axios";
 import DateList from "../components/DateList";
 import ScreeningList from '../components/ScreeningList';
+import Spinner from '../components/Spinner';
 
 function Schedule(props) {
   const [dates,setDates]=useState();
@@ -52,7 +53,7 @@ function Schedule(props) {
       {!(dates&&activeDay)?null:
         <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
-      {!schedule?<div className="text-center"><div className="spinner-border"/></div>:
+      {!schedule?<Spinner />:
         schedule.movie.length===0?"No movie scheduled for this day yet":
           schedule.movie.map((item,index)=>
             (<div className="row my-4" key={index}>

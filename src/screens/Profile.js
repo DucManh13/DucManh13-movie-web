@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import  { Link } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 function Profile(props) {
   const [info,setInfo]= useState();
@@ -16,7 +17,7 @@ function Profile(props) {
   },[props.token]);
   
   return (
-    <div className="container py-3 px-5 bg-light">
+    <div className="container py-3 px-5 bg-light h-100">
       <div className="d-flex">
         <h2 className="mr-auto">User Profile</h2>
         <Link to="/bookinglist">
@@ -30,7 +31,7 @@ function Profile(props) {
         </Link>
       </div>
       <hr/>
-      {!info?<div className="text-center"><div className="spinner-border"/></div>:(
+      {!info?<Spinner />:(
         <div className="container">
           <div className="row">
             <div className="col-lg-2 col-md-3 col-sm-4">

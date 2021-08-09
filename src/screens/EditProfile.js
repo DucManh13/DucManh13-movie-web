@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Spinner from '../components/Spinner';
 
 function EditProfile(props) {
   const [state,setState]=useState();
@@ -72,7 +73,7 @@ function EditProfile(props) {
     <div className="container py-3 px-5 bg-light ">
       <h2>Edit Profile</h2>
       <hr/>
-      {!state?<div className="text-center"><div className="spinner-border"/></div>:
+      {!state?<Spinner />:
       (<form onSubmit={handleSubmit}>            
         <div className="form-group row">
           <label htmlFor="" className="col-sm-1 offset-sm-2 mt-1"><i className="fas fa-user text-danger"></i></label>

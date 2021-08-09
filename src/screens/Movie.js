@@ -2,6 +2,7 @@ import  { Link } from 'react-router-dom';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 function Movie(props) {
   
@@ -21,7 +22,7 @@ function Movie(props) {
 
   return (
     <div className="container py-3 bg-light">
-      {!data?<div className="text-center"><div className="spinner-border"/></div>:(
+      {!data?<Spinner />:(
       <div>
         <div className="row">
           <div className="col-sm-3">

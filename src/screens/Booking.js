@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import Payment from "../components/Payment";
 import SeatMap from '../components/SeatMap';
+import Spinner from '../components/Spinner';
 import { useHistory, useLocation } from "react-router";
 
 function Booking(props) {
@@ -60,7 +61,7 @@ function Booking(props) {
     <div className="container bg-light py-3 px-5">
       <h3>Booking</h3>
       <hr/>
-      {!(seats&&user)?<div className="text-center"><div className="spinner-border"/></div>:
+      {!(seats&&user)?<Spinner />:
         <div className="row py-4">
           <div className="col-lg-5 col-10 offset-1">
             <SeatMap seats={seats} check={check} handleTicket={handleTicket}/>
