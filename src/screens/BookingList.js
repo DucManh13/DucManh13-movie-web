@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import BookingInfo from "../components/BookingInfo";
 import Pagination from "../components/Pagination";
 import SeatMap from '../components/SeatMap';
@@ -24,13 +25,17 @@ function BookingList(props) {
     let mounted=true;
     if(id){
       axios.get('https://fbk-api-gateway.herokuapp.com/bookings/mine?user_id='+id, { headers: {"Authorization" : `Bearer ${props.token}`} }) 
-          .then(response => {
-            if (mounted) {
-              setList(response.data.data.reverse());console.log(response.data.data);
-              setPage({max:Math.floor(response.data.data.length/5),current:0});
-            }
-          })
-      .catch(err => console.log(err));
+        .then(response => {
+          if (mounted) {
+            setList(response.data.data.reverse());console.log(response.data.data);
+            setPage({max:Math.floor(response.data.data.length/5),current:0});
+          }
+        })
+        .catch(err => {
+          if (err.response.status === 401) {
+            toast.error("You do not have the permission to view booking list.");
+          }
+        });
     }
     return ()=>{mounted=false;}
   },[props.token,id]);

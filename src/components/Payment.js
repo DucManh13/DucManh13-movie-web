@@ -1,5 +1,6 @@
 import {PayPalButtons } from "@paypal/react-paypal-js";
 import { useHistory } from "react-router";
+import { toast } from 'react-toastify';
 
 function Payment({seats,ticket,price,user,movieId,screeningId,token,onFinish}) {
   const history = useHistory();
@@ -25,23 +26,22 @@ function Payment({seats,ticket,price,user,movieId,screeningId,token,onFinish}) {
       })
     })
     .then(function(res) {
-      // DEBUG
       console.log("Set up order successfully.");
       return res.json();
     })
     .then(function(data) {
-      // DEBUG
       console.log('-- STEP 1 --');
       console.log(data);
-      return data.orderId; // Same order ID key name as on the server
+      if(data.status&&data.status===401) {
+        toast.error("You do not have the permission to book tickets.");
+      }
+      return data.orderId;
     });
   }
 
   const onApprove= function (data, actions) {
-    // DEBUG
     console.log('-- STEP 2 --');
     console.log(data);
-    // Capture the funds from the transaction
     return fetch('https://fbk-api-gateway.herokuapp.com/bookings/confirm', {
       method: 'post',
       headers: {
@@ -67,24 +67,20 @@ function Payment({seats,ticket,price,user,movieId,screeningId,token,onFinish}) {
       })
     })
     .then(function(res) {
-      // DEBUG
       console.log("Finish.");
       return res.json();
     })
     .then(function(details) {
-      // DEBUG
       console.log('-- STEP 3 --');
       console.log(details);
       if(details.status&&details.status===500) {
-        alert(
+        toast.info(
           "Some seats you selected were booked. Please try again."
         );
         window.location.reload();
       }
       else {
-        alert(
-          "Finish transaction successfully. Check your email for QR code of this booking."
-        );
+        toast.info("Finish transaction successfully. Check your email for QR code of this booking.");
         onFinish();
         history.push("/bookinglist");
       }

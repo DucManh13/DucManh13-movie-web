@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, NavLink, Link, Route, Switch, Redirect } from 'react-router-dom';
 import { PayPalScriptProvider} from "@paypal/react-paypal-js";
 import { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from "react-scroll-up";
 import './App.css';
 import Login from './screens/Login';
@@ -68,6 +70,8 @@ function App() {
               </Link>
             </div>}
         </nav>
+        
+        <ToastContainer autoClose={10000} />
 
         <Switch>
           <Route exact path="/">

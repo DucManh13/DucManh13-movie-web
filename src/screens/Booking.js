@@ -4,6 +4,7 @@ import Payment from "../components/Payment";
 import SeatMap from '../components/SeatMap';
 import Spinner from '../components/Spinner';
 import { useHistory, useLocation } from "react-router";
+import { toast } from 'react-toastify';
 
 function Booking(props) {
   const state  = useLocation().state;
@@ -28,7 +29,11 @@ function Booking(props) {
             setSeats(temp);
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          if (err.response.status === 401) {
+            toast.error("You do not have the permission to book tickets.");
+          }
+        });
 
       axios.get("https://myplsapp.herokuapp.com/auth/profile", { headers: {"Authorization" : `Bearer ${props.token}`} }) 
       .then(response => {
