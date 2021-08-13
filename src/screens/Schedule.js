@@ -54,7 +54,7 @@ function Schedule(props) {
         <DateList dates={dates} activeDay={activeDay} onReceiveActiveDay={changeDay}/>}
       <hr/>
       {!schedule?<Spinner />:
-        schedule.movie.length===0?"No movie scheduled for this day yet":
+        schedule.movie.length===0?"No movie scheduled for this date yet":
           schedule.movie.map((item,index)=>
             (<div className="row my-4" key={index}>
               <div className="col-sm-3">
@@ -70,6 +70,5 @@ function Schedule(props) {
     </div>          
   );
 }
-  
+
 export default Schedule;
-  
